@@ -7,6 +7,7 @@ import type { Post } from '../../post/types/post'
 import type { User } from '../types/user'
 import { getErrorMessage } from '../../../shared/api/getErrorMessage'
 
+// Задаёт базовый адрес API, используемый запросами этого модуля.
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 type UserResponse = {
@@ -21,6 +22,7 @@ type UserPostsResponse = {
 
 // Возвращает вычисленные данные: AuthHeaders.
 const getAuthHeaders = () => {
+  // Хранит значение «token», необходимое для текущего логического блока.
   const token = localStorage.getItem('token')
 
   return token ? { Authorization: `Bearer ${token}` } : undefined
@@ -30,7 +32,9 @@ const getAuthHeaders = () => {
 export const fetchMyProfile = createAsyncThunk(
   'profile/fetchMyProfile',
   async (_, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.get<UserResponse>(
         `${API_URL}/api/users/me`,
         {
@@ -49,7 +53,9 @@ export const fetchMyProfile = createAsyncThunk(
 export const fetchMyPosts = createAsyncThunk(
   'profile/fetchMyPosts',
   async (userId: string, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.get<UserPostsResponse>(
         `${API_URL}/api/posts/user/${userId}`,
       )
@@ -67,7 +73,9 @@ export const fetchMyPosts = createAsyncThunk(
 export const updateMyProfile = createAsyncThunk(
   'profile/updateMyProfile',
   async (formData: FormData, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.patch<UserResponse>(
         `${API_URL}/api/users/me`,
         formData,

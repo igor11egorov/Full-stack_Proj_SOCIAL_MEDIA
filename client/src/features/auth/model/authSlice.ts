@@ -11,9 +11,12 @@ import {
 } from './authThunks'
 import { isTokenExpired } from './tokenUtils'
 
+// Хранит значение «storedToken», необходимое для текущего логического блока.
 const storedToken = localStorage.getItem('token')
+// Хранит значение «token», необходимое для текущего логического блока.
 const token = isTokenExpired(storedToken) ? null : storedToken
 
+// Проверяет условие и выбирает дальнейший сценарий выполнения.
 if (storedToken && !token) {
   localStorage.removeItem('token')
 }
@@ -36,6 +39,7 @@ const initialState: AuthState = {
   message: null,
 }
 
+// Хранит значение «authSlice», необходимое для текущего логического блока.
 const authSlice = createSlice({
   name: 'auth',
   initialState,

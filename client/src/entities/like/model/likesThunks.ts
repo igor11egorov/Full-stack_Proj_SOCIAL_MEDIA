@@ -6,6 +6,7 @@ import axios from 'axios'
 import type { Like } from '../types/like'
 import { getErrorMessage } from '../../../shared/api/getErrorMessage'
 
+// Задаёт базовый адрес API, используемый запросами этого модуля.
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 type LikesResponse = {
@@ -23,6 +24,7 @@ type ToggleLikeResponse = {
 
 // Возвращает вычисленные данные: AuthHeaders.
 const getAuthHeaders = () => {
+  // Хранит значение «token», необходимое для текущего логического блока.
   const token = localStorage.getItem('token')
 
   return token ? { Authorization: `Bearer ${token}` } : undefined
@@ -32,7 +34,9 @@ const getAuthHeaders = () => {
 export const fetchPostLikes = createAsyncThunk(
   'likes/fetchPostLikes',
   async (postId: string, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.get<LikesResponse>(
         `${API_URL}/api/likes/${postId}`,
       )
@@ -52,11 +56,14 @@ export const fetchPostLikes = createAsyncThunk(
 export const togglePostLike = createAsyncThunk(
   'likes/togglePostLike',
   async (postId: string, { rejectWithValue }) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!postId) {
       return rejectWithValue('Post id is required')
     }
 
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.post<ToggleLikeResponse>(
         `${API_URL}/api/likes/${postId}`,
         {},

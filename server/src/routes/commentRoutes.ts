@@ -12,6 +12,7 @@ import {
 } from '../controllers/commentLikeController.js'
 import { authMiddleware } from '../middlewares/authMiddleware.js'
 
+// Хранит значение «router», необходимое для текущего логического блока.
 const router = Router()
 
 router.get('/likes/:commentId', getCommentLikes)

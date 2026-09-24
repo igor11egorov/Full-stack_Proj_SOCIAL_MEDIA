@@ -4,6 +4,7 @@ import { Router } from 'express'
 import { getPostLikes, toggleLike } from '../controllers/likeController.js'
 import { authMiddleware } from '../middlewares/authMiddleware.js'
 
+// Хранит значение «router», необходимое для текущего логического блока.
 const router = Router()
 
 router.post('/:postId', authMiddleware, toggleLike)

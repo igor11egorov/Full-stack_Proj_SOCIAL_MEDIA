@@ -13,6 +13,7 @@ import postRoutes from "./routes/postRoutes.js"
 import subscriptionRoutes from "./routes/subscribeRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 
+// Хранит значение «app», необходимое для текущего логического блока.
 const app = express()
 
 app.use(

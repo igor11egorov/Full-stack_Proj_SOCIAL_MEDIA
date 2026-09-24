@@ -11,6 +11,7 @@ import styles from './LoginPage.module.css'
 
 // Выполняет логику LoginPage в текущем модуле.
 function LoginPage() {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const { status, error } = useAppSelector((state) => state.auth)
 
@@ -18,8 +19,10 @@ function LoginPage() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isLoading = status === 'loading'
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     dispatch(resetAuthState())
   }, [dispatch])

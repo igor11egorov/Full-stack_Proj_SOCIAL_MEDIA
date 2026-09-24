@@ -10,27 +10,33 @@ import { useAppDispatch, useAppSelector } from '../../../app/providers/hooks'
 import type { Comment } from '../types/comment'
 import styles from '../../../widgets/post-preview/PostPreviewModal.module.css'
 
+// Хранит значение «getUserId», необходимое для текущего логического блока.
 const getUserId = (
   user: { _id?: string; id?: string; userId?: string } | null | undefined,
 ) => user?._id || user?.userId || user?.id || ''
 
 // Возвращает вычисленные данные: AgeLabel.
 const getAgeLabel = (createdAt: string) => {
+  // Хранит значение «diffMinutes», необходимое для текущего логического блока.
   const diffMinutes = Math.max(
     1,
     Math.floor((Date.now() - new Date(createdAt).getTime()) / 60000),
   )
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffMinutes < 60) {
     return `${diffMinutes}m`
   }
 
+  // Хранит значение «diffHours», необходимое для текущего логического блока.
   const diffHours = Math.floor(diffMinutes / 60)
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffHours < 24) {
     return `${diffHours}h`
   }
 
+  // Хранит значение «diffDays», необходимое для текущего логического блока.
   const diffDays = Math.floor(diffHours / 24)
 
   return diffDays === 1 ? '1 day' : `${diffDays} days`
@@ -48,24 +54,30 @@ function CommentRow({
   currentUserId,
   onDeleteComment,
 }: CommentRowProps) {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const [likedOverride, setLikedOverride] = useState<{
     commentId: string
     value: boolean
   } | null>(null)
+  // Хранит значение «commentLikes», необходимое для текущего логического блока.
   const commentLikes = useAppSelector(
     (state) => state.commentLikes.byCommentId[comment._id],
   )
+  // Задаёт ограничение, используемое при проверке или отображении данных.
   const likesCount = commentLikes?.count ?? 0
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isCommentLikedFromServer =
     commentLikes?.likes.some(
       (like) => getUserId(like.user) === currentUserId,
     ) ?? false
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isCommentLiked =
     likedOverride?.commentId === comment._id
       ? likedOverride.value
       : isCommentLikedFromServer
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     dispatch(fetchCommentLikes(comment._id))
   }, [comment._id, dispatch])

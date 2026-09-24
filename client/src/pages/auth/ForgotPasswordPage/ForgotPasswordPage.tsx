@@ -11,12 +11,15 @@ import styles from './ForgotPasswordPage.module.css'
 
 // Выполняет логику ForgotPasswordPage в текущем модуле.
 function ForgotPasswordPage() {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const { status, error, message } = useAppSelector((state) => state.auth)
   const [identifier, setIdentifier] = useState('')
 
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isLoading = status === 'loading'
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     dispatch(resetAuthState())
   }, [dispatch])

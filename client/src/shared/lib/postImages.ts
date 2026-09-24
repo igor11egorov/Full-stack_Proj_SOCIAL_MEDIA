@@ -5,6 +5,7 @@ import type { Post } from '../../entities/post/types/post'
 
 // Возвращает вычисленные данные: PostImages.
 export const getPostImages = (post: Post) => {
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (post.images && post.images.length > 0) {
     return post.images
   }

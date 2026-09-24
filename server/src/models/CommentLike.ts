@@ -9,6 +9,7 @@ export interface ICommentLike extends Document {
   updatedAt: Date
 }
 
+// Хранит значение «commentLikeSchema», необходимое для текущего логического блока.
 const commentLikeSchema = new mongoose.Schema<ICommentLike>(
   {
     user: {

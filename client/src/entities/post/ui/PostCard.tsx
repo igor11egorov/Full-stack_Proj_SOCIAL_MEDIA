@@ -22,23 +22,30 @@ type PostCardProps = {
   onOpenPost: (post: Post) => void
 }
 
+// Хранит значение «getUserId», необходимое для текущего логического блока.
 const getUserId = (
   user: { _id?: string; id?: string; userId?: string } | null | undefined,
 ) => user?._id || user?.userId || user?.id || ''
 
 // Возвращает вычисленные данные: PostAgeLabel.
 const getPostAgeLabel = (createdAt: string) => {
+  // Хранит значение «diffMinutes», необходимое для текущего логического блока.
   const diffMinutes = Math.max(
     1,
     Math.floor((Date.now() - new Date(createdAt).getTime()) / 60000),
   )
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffMinutes < 60) return `${diffMinutes}m`
 
+  // Хранит значение «diffHours», необходимое для текущего логического блока.
   const diffHours = Math.floor(diffMinutes / 60)
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffHours < 24) return `${diffHours}h`
 
+  // Хранит значение «diffDays», необходимое для текущего логического блока.
   const diffDays = Math.floor(diffHours / 24)
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffDays < 7) return `${diffDays}d`
 
   return `${Math.floor(diffDays / 7)}w`
@@ -46,9 +53,12 @@ const getPostAgeLabel = (createdAt: string) => {
 
 // Выполняет логику PostCard в текущем модуле.
 function PostCard({ post, onOpenPost }: PostCardProps) {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const { myProfile } = useAppSelector((state) => state.profile)
+  // Хранит значение «postLikes», необходимое для текущего логического блока.
   const postLikes = useAppSelector((state) => state.likes.byPostId[post._id])
+  // Хранит значение «postComments», необходимое для текущего логического блока.
   const postComments = useAppSelector(
     (state) => state.comments.byPostId[post._id],
   )
@@ -61,29 +71,43 @@ function PostCard({ post, onOpenPost }: PostCardProps) {
     value: boolean
   } | null>(null)
 
+  // Хранит значение «currentUserId», необходимое для текущего логического блока.
   const currentUserId = getUserId(myProfile)
+  // Хранит значение «authorId», необходимое для текущего логического блока.
   const authorId = getUserId(post.author)
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isOwnPost = Boolean(currentUserId && authorId === currentUserId)
+  // Хранит значение «subscriptionSummary», необходимое для текущего логического блока.
   const subscriptionSummary = byUserId[authorId]
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isFollowingAuthor = subscriptionSummary?.isFollowing ?? false
+  // Задаёт ограничение, используемое при проверке или отображении данных.
   const likesCount = postLikes?.count ?? 0
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isPostLikedFromServer =
     postLikes?.likes.some((like) => getUserId(like.user) === currentUserId) ??
     false
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isPostLiked =
     likedOverride?.postId === post._id
       ? likedOverride.value
       : isPostLikedFromServer
+  // Хранит значение «likesLabel», необходимое для текущего логического блока.
   const likesLabel = `${likesCount} ${likesCount === 1 ? 'like' : 'likes'}`
+  // Задаёт ограничение, используемое при проверке или отображении данных.
   const commentsCount = postComments?.count ?? 0
+  // Хранит значение «latestComment», необходимое для текущего логического блока.
   const latestComment = postComments?.comments[0]
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     dispatch(fetchPostLikes(post._id))
     dispatch(fetchPostComments(post._id))
   }, [dispatch, post._id])
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (authorId && currentUserId && !isOwnPost) {
       dispatch(fetchSubscriptionSummary({ userId: authorId, currentUserId }))
     }
@@ -97,10 +121,12 @@ function PostCard({ post, onOpenPost }: PostCardProps) {
 
   // Обрабатывает действие пользователя: ToggleFollow.
   const handleToggleFollow = () => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!authorId || followStatus === 'loading') {
       return
     }
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (isFollowingAuthor) {
       dispatch(unfollowUser(authorId))
       return

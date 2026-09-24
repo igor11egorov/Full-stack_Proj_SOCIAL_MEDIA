@@ -8,6 +8,7 @@ import { fetchMyProfile } from '../../../entities/user/model/profileThunks'
 import { useAppDispatch, useAppSelector } from '../../../app/providers/hooks'
 import styles from './LeftSidebar.module.css'
 
+// Хранит значение «navItems», необходимое для текущего логического блока.
 const navItems = [
   { label: 'Explore', to: '/explore', icon: '/icons/explore.png' },
   { label: 'Messages', to: '/messages', icon: '/icons/messages.png' },
@@ -27,10 +28,14 @@ function LeftSidebar({
   onSearchClick,
   onNotificationsClick,
 }: LeftSidebarProps) {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
+  // Хранит значение «navigate», необходимое для текущего логического блока.
   const navigate = useNavigate()
+  // Хранит значение «location», необходимое для текущего логического блока.
   const location = useLocation()
   const { myProfile } = useAppSelector((state) => state.profile)
+  // Хранит значение «profileAvatar», необходимое для текущего логического блока.
   const profileAvatar = myProfile?.avatar || '/icons/ICH_avatar.png'
 
   // Загружает данные текущего пользователя, чтобы показать его фотографию в навигации.

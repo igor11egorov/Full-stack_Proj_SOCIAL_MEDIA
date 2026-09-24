@@ -6,6 +6,7 @@ import axios from 'axios'
 import type { User } from '../../../entities/user/types/user'
 import { getErrorMessage } from '../../../shared/api/getErrorMessage'
 
+// Задаёт базовый адрес API, используемый запросами этого модуля.
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 type SearchUsersResponse = {
@@ -18,6 +19,7 @@ type SearchUsersResponse = {
 export const searchUsers = createAsyncThunk(
   'search/searchUsers',
   async (query: string, { rejectWithValue }) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!query.trim()) {
       return {
         users: [],
@@ -25,7 +27,9 @@ export const searchUsers = createAsyncThunk(
       }
     }
 
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.get<SearchUsersResponse>(
         `${API_URL}/api/users/search`,
         {

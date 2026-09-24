@@ -9,6 +9,7 @@ import {
 } from '../controllers/subscribeController.js'
 import { authMiddleware } from '../middlewares/authMiddleware.js'
 
+// Хранит значение «router», необходимое для текущего логического блока.
 const router = Router()
 
 router.post('/:userId', authMiddleware, subscribeToUser)

@@ -10,6 +10,7 @@ import {
 import { authMiddleware } from '../middlewares/authMiddleware.js'
 import { upload } from '../middlewares/uploadUserImage.js'
 
+// Хранит значение «router», необходимое для текущего логического блока.
 const router = Router()
 
 router.get('/me', authMiddleware, getMyProfile)

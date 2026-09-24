@@ -12,22 +12,27 @@ import styles from './HomePage.module.css'
 
 // Выполняет логику HomePage в текущем модуле.
 function HomePage() {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const { allPosts, feedStatus, error } = useAppSelector((state) => state.posts)
   const [selectedPost, setSelectedPost] = useState<Post | null>(null)
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     dispatch(fetchAllPosts())
   }, [dispatch])
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (feedStatus === 'idle' || feedStatus === 'loading') {
     return <Spinner label="Loading posts..." />
   }
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (feedStatus === 'failed') {
     return <p className={styles.errorText}>{error}</p>
   }
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (feedStatus === 'succeeded' && allPosts.length === 0) {
     return <p className={styles.stateText}>No posts yet.</p>
   }

@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from '../../app/providers/hooks'
 import type { User } from '../../entities/user/types/user'
 import styles from './EditProfilePage.module.css'
 
+// Задаёт ограничение, используемое при проверке или отображении данных.
 const maxBioLength = 150
 
 type EditProfileFormProps = {
@@ -28,8 +29,11 @@ type EditProfileFormProps = {
 
 // Выполняет логику EditProfileForm в текущем модуле.
 function EditProfileForm({ myProfile, status, error }: EditProfileFormProps) {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
+  // Хранит значение «navigate», необходимое для текущего логического блока.
   const navigate = useNavigate()
+  // Хранит значение «fileInputRef», необходимое для текущего логического блока.
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [username, setUsername] = useState(myProfile.username || '')
   const [website, setWebsite] = useState(myProfile.website || '')
@@ -39,12 +43,15 @@ function EditProfileForm({ myProfile, status, error }: EditProfileFormProps) {
     myProfile.avatar || '/icons/ICH_avatar.png',
   )
 
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isLoading = status === 'loading'
 
   // Обрабатывает действие пользователя: PhotoChange.
   const handlePhotoChange = (event: ChangeEvent<HTMLInputElement>) => {
+    // Хранит значение «file», необходимое для текущего логического блока.
     const file = event.target.files?.[0]
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!file) {
       return
     }
@@ -57,17 +64,21 @@ function EditProfileForm({ myProfile, status, error }: EditProfileFormProps) {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    // Хранит значение «formData», необходимое для текущего логического блока.
     const formData = new FormData()
     formData.append('username', username.trim())
     formData.append('website', website.trim())
     formData.append('bio', bio.trim())
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (avatarFile) {
       formData.append('avatar', avatarFile)
     }
 
+    // Хранит значение «result», необходимое для текущего логического блока.
     const result = await dispatch(updateMyProfile(formData))
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (updateMyProfile.fulfilled.match(result)) {
       navigate('/profile')
     }
@@ -164,15 +175,19 @@ function EditProfileForm({ myProfile, status, error }: EditProfileFormProps) {
 
 // Выполняет логику EditProfilePage в текущем модуле.
 function EditProfilePage() {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const { myProfile, status, error } = useAppSelector((state) => state.profile)
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!myProfile) {
       dispatch(fetchMyProfile())
     }
   }, [dispatch, myProfile])
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (!myProfile) {
     return <Spinner label="Loading profile..." />
   }

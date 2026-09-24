@@ -11,6 +11,7 @@ import styles from './SignupPage.module.css'
 
 // Выполняет логику SignupPage в текущем модуле.
 function SignupPage() {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const { status, error } = useAppSelector((state) => state.auth)
 
@@ -19,12 +20,16 @@ function SignupPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isLoading = status === 'loading'
+  // Хранит значение «usernameError», необходимое для текущего логического блока.
   const usernameError = error?.toLowerCase().includes('username')
     ? 'This username is already taken.'
     : null
+  // Хранит значение «formError», необходимое для текущего логического блока.
   const formError = error && !usernameError ? error : null
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     dispatch(resetAuthState())
   }, [dispatch])

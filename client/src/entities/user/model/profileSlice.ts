@@ -23,6 +23,7 @@ const initialState: ProfileState = {
   error: null,
 }
 
+// Хранит значение «profileSlice», необходимое для текущего логического блока.
 const profileSlice = createSlice({
   name: 'profile',
   initialState,

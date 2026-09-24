@@ -36,6 +36,7 @@ const initialState: PostsState = {
   error: null,
 }
 
+// Хранит значение «postsSlice», необходимое для текущего логического блока.
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
@@ -133,6 +134,7 @@ const postsSlice = createSlice({
         state.explorePosts = state.explorePosts.filter(
           (post) => post._id !== action.payload,
         )
+        // Проверяет условие и выбирает дальнейший сценарий выполнения.
         if (state.selectedPost?._id === action.payload) {
           state.selectedPost = null
         }

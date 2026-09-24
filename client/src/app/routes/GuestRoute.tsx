@@ -9,20 +9,26 @@ import { useAppDispatch, useAppSelector } from '../providers/hooks'
 
 // Выполняет логику GuestRoute в текущем модуле.
 function GuestRoute() {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const { isAuthenticated, token } = useAppSelector((state) => state.auth)
+  // Хранит значение «tokenExpired», необходимое для текущего логического блока.
   const tokenExpired = isAuthenticated && isTokenExpired(token)
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (tokenExpired) {
       dispatch(logout())
     }
   }, [dispatch, tokenExpired])
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (tokenExpired) {
     return <Outlet />
   }
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (isAuthenticated) {
     return <Navigate to="/" replace />
   }

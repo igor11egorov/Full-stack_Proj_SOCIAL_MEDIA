@@ -14,6 +14,7 @@ export interface INotification extends Document {
   updatedAt: Date
 }
 
+// Хранит значение «notificationSchema», необходимое для текущего логического блока.
 const notificationSchema = new mongoose.Schema<INotification>(
   {
     recipient: {

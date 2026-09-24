@@ -6,6 +6,7 @@ import axios from 'axios'
 import type { Comment } from '../types/comment'
 import { getErrorMessage } from '../../../shared/api/getErrorMessage'
 
+// Задаёт базовый адрес API, используемый запросами этого модуля.
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 type CommentsResponse = {
@@ -31,6 +32,7 @@ type DeleteCommentPayload = {
 
 // Возвращает вычисленные данные: AuthHeaders.
 const getAuthHeaders = () => {
+  // Хранит значение «token», необходимое для текущего логического блока.
   const token = localStorage.getItem('token')
 
   return token ? { Authorization: `Bearer ${token}` } : undefined
@@ -40,7 +42,9 @@ const getAuthHeaders = () => {
 export const fetchPostComments = createAsyncThunk(
   'comments/fetchPostComments',
   async (postId: string, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.get<CommentsResponse>(
         `${API_URL}/api/comments/${postId}`,
       )
@@ -60,15 +64,19 @@ export const fetchPostComments = createAsyncThunk(
 export const addPostComment = createAsyncThunk(
   'comments/addPostComment',
   async ({ postId, text }: AddCommentPayload, { rejectWithValue }) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!postId) {
       return rejectWithValue('Post id is required')
     }
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!text.trim()) {
       return rejectWithValue('Comment text is required')
     }
 
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.post<AddCommentResponse>(
         `${API_URL}/api/comments/${postId}`,
         { text: text.trim() },
@@ -89,10 +97,12 @@ export const addPostComment = createAsyncThunk(
 export const deletePostComment = createAsyncThunk(
   'comments/deletePostComment',
   async ({ postId, commentId }: DeleteCommentPayload, { rejectWithValue }) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!commentId) {
       return rejectWithValue('Comment id is required')
     }
 
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
       await axios.delete(`${API_URL}/api/comments/${commentId}`, {
         headers: getAuthHeaders(),

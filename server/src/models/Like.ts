@@ -9,6 +9,7 @@ export interface ILike extends Document {
   updatedAt: Date
 }
 
+// Хранит значение «likeSchema», необходимое для текущего логического блока.
 const likeSchema = new mongoose.Schema<ILike>(
   {
     user: {

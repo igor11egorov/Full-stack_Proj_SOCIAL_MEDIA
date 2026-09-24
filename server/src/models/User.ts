@@ -18,6 +18,7 @@ export interface IUser extends Document {
   comparePassword(candidatePassword: string): Promise<boolean>
 }
 
+// Хранит значение «userSchema», необходимое для текущего логического блока.
 const userSchema = new mongoose.Schema<IUser>(
   {
     username: {
@@ -76,6 +77,7 @@ userSchema.methods.comparePassword = async function (
 }
 
 userSchema.pre('save', async function () {
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (!this.isModified('password')) {
     return
   }

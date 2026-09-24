@@ -2,8 +2,10 @@
 // Основные части: обработка запроса до контроллера или единый формат ошибки.
 import multer from 'multer'
 
+// Хранит значение «storage», необходимое для текущего логического блока.
 const storage = multer.memoryStorage()
 
+// Хранит значение «upload», необходимое для текущего логического блока.
 export const upload = multer({
   storage,
   limits: {

@@ -12,6 +12,7 @@ import profileReducer from '../../entities/user/model/profileSlice'
 import searchReducer from '../../features/search/model/searchSlice'
 import subscriptionsReducer from '../../entities/subscription/model/subscriptionsSlice'
 
+// Хранит значение «store», необходимое для текущего логического блока.
 const store = configureStore({
   reducer: {
     auth: authReducer,

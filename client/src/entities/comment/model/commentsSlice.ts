@@ -30,11 +30,13 @@ const initialState: CommentsState = {
   error: null,
 }
 
+// Хранит значение «getDefaultPostComments», необходимое для текущего логического блока.
 const getDefaultPostComments = (): PostCommentsState => ({
   comments: [],
   count: 0,
 })
 
+// Хранит значение «commentsSlice», необходимое для текущего логического блока.
 const commentsSlice = createSlice({
   name: 'comments',
   initialState,
@@ -66,6 +68,7 @@ const commentsSlice = createSlice({
       .addCase(addPostComment.fulfilled, (state, action) => {
         state.addStatus = 'idle'
 
+        // Хранит значение «current», необходимое для текущего логического блока.
         const current =
           state.byPostId[action.payload.postId] ?? getDefaultPostComments()
 
@@ -88,6 +91,7 @@ const commentsSlice = createSlice({
       .addCase(deletePostComment.fulfilled, (state, action) => {
         state.deleteStatus = 'idle'
 
+        // Хранит значение «current», необходимое для текущего логического блока.
         const current =
           state.byPostId[action.payload.postId] ?? getDefaultPostComments()
 

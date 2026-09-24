@@ -4,9 +4,12 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+// Хранит значение «requiredEnv», необходимое для текущего логического блока.
 const requiredEnv = (name: string): string => {
+  // Хранит значение «value», необходимое для текущего логического блока.
   const value = process.env[name]
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (!value) {
     throw new Error(`${name} is not defined in .env`)
   }
@@ -14,6 +17,7 @@ const requiredEnv = (name: string): string => {
   return value
 }
 
+// Хранит значение «env», необходимое для текущего логического блока.
 export const env = {
   port: Number(process.env.PORT) || 3000,
   mongoUrl: process.env.MONGO_URL || '',

@@ -6,6 +6,7 @@ import axios from 'axios'
 import type { Post } from '../types/post'
 import { getErrorMessage } from '../../../shared/api/getErrorMessage'
 
+// Задаёт базовый адрес API, используемый запросами этого модуля.
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 type ExplorePostsResponse = {
@@ -31,6 +32,7 @@ type DeletePostResponse = {
 
 // Возвращает вычисленные данные: AuthHeaders.
 const getAuthHeaders = () => {
+  // Хранит значение «token», необходимое для текущего логического блока.
   const token = localStorage.getItem('token')
 
   return token ? { Authorization: `Bearer ${token}` } : undefined
@@ -40,7 +42,9 @@ const getAuthHeaders = () => {
 export const fetchExplorePosts = createAsyncThunk(
   'posts/fetchExplorePosts',
   async (_, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.get<ExplorePostsResponse>(
         `${API_URL}/api/posts/explore`,
       )
@@ -58,7 +62,9 @@ export const fetchExplorePosts = createAsyncThunk(
 export const fetchAllPosts = createAsyncThunk(
   'posts/fetchAllPosts',
   async (_, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.get<PostsResponse>(`${API_URL}/api/posts`)
 
       return response.data.posts
@@ -72,7 +78,9 @@ export const fetchAllPosts = createAsyncThunk(
 export const fetchPostById = createAsyncThunk(
   'posts/fetchPostById',
   async (postId: string, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.get<PostResponse>(
         `${API_URL}/api/posts/${postId}`,
       )
@@ -88,7 +96,9 @@ export const fetchPostById = createAsyncThunk(
 export const createPost = createAsyncThunk(
   'posts/createPost',
   async (formData: FormData, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.post<PostResponse>(
         `${API_URL}/api/posts`,
         formData,
@@ -111,7 +121,9 @@ export const updatePost = createAsyncThunk(
     { postId, formData }: { postId: string; formData: FormData },
     { rejectWithValue },
   ) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.patch<PostResponse>(
         `${API_URL}/api/posts/${postId}`,
         formData,
@@ -131,6 +143,7 @@ export const updatePost = createAsyncThunk(
 export const deletePost = createAsyncThunk(
   'posts/deletePost',
   async (postId: string, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
       await axios.delete<DeletePostResponse>(`${API_URL}/api/posts/${postId}`, {
         headers: getAuthHeaders(),

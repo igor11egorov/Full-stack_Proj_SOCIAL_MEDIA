@@ -11,6 +11,7 @@ export interface IMessage extends Document {
   updatedAt: Date
 }
 
+// Хранит значение «messageSchema», необходимое для текущего логического блока.
 const messageSchema = new mongoose.Schema<IMessage>(
   {
     sender: {

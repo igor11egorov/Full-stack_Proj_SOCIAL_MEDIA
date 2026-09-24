@@ -17,6 +17,7 @@ const initialState: SearchState = {
   error: null,
 }
 
+// Хранит значение «searchSlice», необходимое для текущего логического блока.
 const searchSlice = createSlice({
   name: 'search',
   initialState,

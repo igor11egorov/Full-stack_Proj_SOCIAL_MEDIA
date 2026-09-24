@@ -3,6 +3,7 @@
 import { Router } from 'express'
 import { login, register } from '../controllers/authController.js'
 
+// Хранит значение «router», необходимое для текущего логического блока.
 const router = Router()
 
 router.post('/register', register)

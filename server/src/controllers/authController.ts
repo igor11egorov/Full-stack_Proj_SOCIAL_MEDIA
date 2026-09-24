@@ -11,9 +11,11 @@ export const register = async (
   res: Response,
   next: NextFunction,
 ) => {
+  // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
   try {
     const { username, email, password, fullName } = req.body
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!username || !email || !password || !fullName) {
       throw new AppError(
         'Fields username, email, password and fullName are required',
@@ -21,14 +23,17 @@ export const register = async (
       )
     }
 
+    // Хранит значение «existingUser», необходимое для текущего логического блока.
     const existingUser = await User.findOne({
       $or: [{ email }, { username }],
     })
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (existingUser) {
       throw new AppError('User with this email or username already exists', 409)
     }
 
+    // Хранит значение «user», необходимое для текущего логического блока.
     const user = new User({
       username,
       email,
@@ -38,6 +43,7 @@ export const register = async (
 
     await user.save()
 
+    // Хранит значение «token», необходимое для текущего логического блока.
     const token = generateToken(user._id.toString())
 
     res.status(201).json({
@@ -63,27 +69,34 @@ export const login = async (
   res: Response,
   next: NextFunction,
 ) => {
+  // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
   try {
     const { identifier, password } = req.body
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!identifier || !password) {
       throw new AppError('Email/username and password required', 400)
     }
 
+    // Хранит значение «user», необходимое для текущего логического блока.
     const user = await User.findOne({
       $or: [{ email: identifier }, { username: identifier }],
     }).select('+password')
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!user) {
       throw new AppError('Invalid password or email', 401)
     }
 
+    // Хранит результат проверки условия для последующей логики интерфейса.
     const isPasswordValid = await user.comparePassword(password)
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!isPasswordValid) {
       throw new AppError('Invalid password or email', 401)
     }
 
+    // Хранит значение «token», необходимое для текущего логического блока.
     const token = generateToken(user._id.toString())
 
     res.status(200).json({

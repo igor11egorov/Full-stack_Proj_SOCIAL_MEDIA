@@ -29,28 +29,35 @@ import type { Post } from '../../entities/post/types/post'
 import { getPostCoverImage, getPostImages } from '../../shared/lib/postImages'
 import styles from './MyProfilePage.module.css'
 
+// Хранит значение «getUserId», необходимое для текущего логического блока.
 const getUserId = (
   user: { _id?: string; id?: string; userId?: string } | null,
 ) => user?._id || user?.userId || user?.id || ''
+// Задаёт ограничение, используемое при проверке или отображении данных.
 const collapsedBioLength = 120
 
 // Возвращает вычисленные данные: PostAgeLabel.
 const getPostAgeLabel = (createdAt: string) => {
+  // Хранит значение «diffMinutes», необходимое для текущего логического блока.
   const diffMinutes = Math.max(
     1,
     Math.floor((Date.now() - new Date(createdAt).getTime()) / 60000),
   )
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffMinutes < 60) {
     return `${diffMinutes}m`
   }
 
+  // Хранит значение «diffHours», необходимое для текущего логического блока.
   const diffHours = Math.floor(diffMinutes / 60)
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffHours < 24) {
     return `${diffHours}h`
   }
 
+  // Хранит значение «diffDays», необходимое для текущего логического блока.
   const diffDays = Math.floor(diffHours / 24)
 
   return diffDays === 1 ? '1 day' : `${diffDays} days`
@@ -58,7 +65,9 @@ const getPostAgeLabel = (createdAt: string) => {
 
 // Выполняет логику MyProfilePage в текущем модуле.
 function MyProfilePage() {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
+  // Хранит значение «navigate», необходимое для текущего логического блока.
   const navigate = useNavigate()
   const { myProfile, myPosts, status, postsStatus, error } = useAppSelector(
     (state) => state.profile,
@@ -85,26 +94,34 @@ function MyProfilePage() {
   const [subscriptionsModal, setSubscriptionsModal] = useState<
     'followers' | 'following' | null
   >(null)
+  // Хранит значение «myProfileId», необходимое для текущего логического блока.
   const myProfileId = getUserId(myProfile)
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     dispatch(fetchMyProfile())
   }, [dispatch])
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Хранит значение «userId», необходимое для текущего логического блока.
     const userId = getUserId(myProfile)
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (userId) {
       dispatch(fetchMyPosts(userId))
       dispatch(fetchSubscriptionSummary({ userId, currentUserId: userId }))
     }
   }, [dispatch, myProfile])
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!myProfileId || !subscriptionsModal) {
       return
     }
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (subscriptionsModal === 'followers') {
       dispatch(fetchUserFollowers(myProfileId))
       return
@@ -113,23 +130,30 @@ function MyProfilePage() {
     dispatch(fetchUserFollowing(myProfileId))
   }, [dispatch, myProfileId, subscriptionsModal])
 
+  // Хранит значение «selectedPostLikes», необходимое для текущего логического блока.
   const selectedPostLikes = useAppSelector((state) =>
     selectedPost ? state.likes.byPostId[selectedPost._id] : undefined,
   )
+  // Задаёт ограничение, используемое при проверке или отображении данных.
   const selectedPostLikesCount = selectedPostLikes?.count ?? 0
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isSelectedPostLikedFromServer =
     selectedPostLikes?.likes.some(
       (like) => getUserId(like.user) === myProfileId,
     ) ?? false
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isSelectedPostLiked =
     likedOverride && selectedPost && likedOverride.postId === selectedPost._id
       ? likedOverride.value
       : isSelectedPostLikedFromServer
+  // Хранит значение «selectedPostLikesLabel», необходимое для текущего логического блока.
   const selectedPostLikesLabel = `${selectedPostLikesCount} ${
     selectedPostLikesCount === 1 ? 'like' : 'likes'
   }`
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!selectedPost) {
       return
     }
@@ -137,9 +161,11 @@ function MyProfilePage() {
     dispatch(fetchPostLikes(selectedPost._id))
   }, [dispatch, selectedPost])
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     // Обрабатывает действие пользователя: KeyDown.
     const handleKeyDown = (event: KeyboardEvent) => {
+      // Проверяет условие и выбирает дальнейший сценарий выполнения.
       if (event.key === 'Escape') {
         setIsPostMenuOpen(false)
         setSelectedPost(null)
@@ -148,11 +174,14 @@ function MyProfilePage() {
         return
       }
 
+      // Проверяет условие и выбирает дальнейший сценарий выполнения.
       if (selectedPostIndex === null || myPosts.length < 2 || isPostMenuOpen) {
         return
       }
 
+      // Проверяет условие и выбирает дальнейший сценарий выполнения.
       if (event.key === 'ArrowLeft') {
+        // Хранит значение «nextIndex», необходимое для текущего логического блока.
         const nextIndex =
           selectedPostIndex === 0 ? myPosts.length - 1 : selectedPostIndex - 1
 
@@ -161,7 +190,9 @@ function MyProfilePage() {
         setSelectedImageIndex(0)
       }
 
+      // Проверяет условие и выбирает дальнейший сценарий выполнения.
       if (event.key === 'ArrowRight') {
+        // Хранит значение «nextIndex», необходимое для текущего логического блока.
         const nextIndex =
           selectedPostIndex === myPosts.length - 1 ? 0 : selectedPostIndex + 1
 
@@ -178,42 +209,63 @@ function MyProfilePage() {
     }
   }, [isPostMenuOpen, myPosts, selectedPostIndex])
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (status === 'loading') {
     return <Spinner label="Loading profile..." />
   }
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (status === 'failed') {
     return <p className={styles.errorText}>{error}</p>
   }
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (!myProfile) {
     return <p className={styles.stateText}>Profile not found.</p>
   }
 
+  // Хранит значение «avatar», необходимое для текущего логического блока.
   const avatar = myProfile.avatar || '/icons/ICH_avatar.png'
+  // Хранит значение «bio», необходимое для текущего логического блока.
   const bio = myProfile.bio?.trim()
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isBioLong = Boolean(bio && bio.length > collapsedBioLength)
+  // Хранит значение «website», необходимое для текущего логического блока.
   const website = myProfile.website?.trim()
+  // Хранит значение «websiteHref», необходимое для текущего логического блока.
   const websiteHref =
     website && (website.startsWith('http') ? website : `https://${website}`)
+  // Хранит значение «selectedPostAuthor», необходимое для текущего логического блока.
   const selectedPostAuthor = selectedPost?.author || myProfile
+  // Хранит значение «selectedPostAvatar», необходимое для текущего логического блока.
   const selectedPostAvatar = selectedPostAuthor?.avatar || avatar
+  // Хранит значение «selectedPostUsername», необходимое для текущего логического блока.
   const selectedPostUsername =
     selectedPostAuthor?.username || myProfile.username
+  // Хранит значение «selectedPostImages», необходимое для текущего логического блока.
   const selectedPostImages = selectedPost ? getPostImages(selectedPost) : []
+  // Хранит значение «selectedPostImage», необходимое для текущего логического блока.
   const selectedPostImage =
     selectedPostImages[selectedImageIndex] || selectedPostImages[0] || ''
+  // Хранит значение «hasMultipleSelectedImages», необходимое для текущего логического блока.
   const hasMultipleSelectedImages = selectedPostImages.length > 1
+  // Хранит значение «subscriptionSummary», необходимое для текущего логического блока.
   const subscriptionSummary = subscriptionsByUserId[myProfileId]
+  // Задаёт ограничение, используемое при проверке или отображении данных.
   const followersCount = subscriptionSummary?.followersCount ?? 0
+  // Задаёт ограничение, используемое при проверке или отображении данных.
   const followingCount = subscriptionSummary?.followingCount ?? 0
+  // Хранит значение «followersList», необходимое для текущего логического блока.
   const followersList = followersByUserId[myProfileId] ?? []
+  // Хранит значение «followingList», необходимое для текущего логического блока.
   const followingList = followingByUserId[myProfileId] ?? []
 
+  // Хранит значение «handleStatKeyDown», необходимое для текущего логического блока.
   const handleStatKeyDown = (
     event: ReactKeyboardEvent<HTMLDivElement>,
     modal: 'followers' | 'following',
   ) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
       setSubscriptionsModal(modal)
@@ -222,10 +274,12 @@ function MyProfilePage() {
 
   // Обрабатывает действие пользователя: CopyLink.
   const handleCopyLink = async () => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!selectedPost) {
       return
     }
 
+    // Хранит значение «postUrl», необходимое для текущего логического блока.
     const postUrl = `${window.location.origin}/posts/${selectedPost._id}`
     await navigator.clipboard.writeText(postUrl)
     setCopyStatus('copied')
@@ -233,12 +287,15 @@ function MyProfilePage() {
 
   // Обрабатывает действие пользователя: UnfollowFromList.
   const handleUnfollowFromList = async (userId: string) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!myProfileId || followStatus === 'loading') {
       return
     }
 
+    // Хранит значение «result», необходимое для текущего логического блока.
     const result = await dispatch(unfollowUser(userId))
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!unfollowUser.fulfilled.match(result)) {
       return
     }
@@ -248,26 +305,33 @@ function MyProfilePage() {
 
   // Обрабатывает действие пользователя: DeletePost.
   const handleDeletePost = async () => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!selectedPost) {
       return
     }
 
+    // Хранит значение «postId», необходимое для текущего логического блока.
     const postId = selectedPost._id
+    // Хранит значение «result», необходимое для текущего логического блока.
     const result = await dispatch(deletePost(postId))
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!deletePost.fulfilled.match(result)) {
       return
     }
 
+    // Хранит значение «remainingPosts», необходимое для текущего логического блока.
     const remainingPosts = myPosts.filter((post) => post._id !== postId)
     setIsPostMenuOpen(false)
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (remainingPosts.length === 0) {
       setSelectedPost(null)
       setSelectedPostIndex(null)
       return
     }
 
+    // Хранит значение «nextIndex», необходимое для текущего логического блока.
     const nextIndex = Math.min(
       selectedPostIndex ?? 0,
       remainingPosts.length - 1,
@@ -279,6 +343,7 @@ function MyProfilePage() {
 
   // Обрабатывает действие пользователя: ToggleSelectedPostLike.
   const handleToggleSelectedPostLike = () => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!selectedPost) {
       return
     }
@@ -426,6 +491,7 @@ function MyProfilePage() {
                 type="button"
                 aria-label="Previous post"
                 onClick={() => {
+                  // Хранит значение «nextIndex», необходимое для текущего логического блока.
                   const nextIndex =
                     selectedPostIndex === 0
                       ? myPosts.length - 1
@@ -444,6 +510,7 @@ function MyProfilePage() {
                 type="button"
                 aria-label="Next post"
                 onClick={() => {
+                  // Хранит значение «nextIndex», необходимое для текущего логического блока.
                   const nextIndex =
                     selectedPostIndex === myPosts.length - 1
                       ? 0

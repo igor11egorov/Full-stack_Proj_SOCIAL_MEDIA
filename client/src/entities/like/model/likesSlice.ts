@@ -25,12 +25,14 @@ const initialState: LikesState = {
   error: null,
 }
 
+// Хранит значение «getDefaultPostLikes», необходимое для текущего логического блока.
 const getDefaultPostLikes = (): PostLikesState => ({
   likes: [],
   count: 0,
   isLiked: false,
 })
 
+// Хранит значение «likesSlice», необходимое для текущего логического блока.
 const likesSlice = createSlice({
   name: 'likes',
   initialState,
@@ -63,6 +65,7 @@ const likesSlice = createSlice({
       .addCase(togglePostLike.fulfilled, (state, action) => {
         state.toggleStatus = 'idle'
 
+        // Хранит значение «current», необходимое для текущего логического блока.
         const current =
           state.byPostId[action.payload.postId] ?? getDefaultPostLikes()
 

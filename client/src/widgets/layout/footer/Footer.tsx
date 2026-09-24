@@ -3,6 +3,7 @@
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
 
+// Хранит значение «footerLinks», необходимое для текущего логического блока.
 const footerLinks = [
   { label: 'Home', to: '/' },
   { label: 'Search', to: '/search' },

@@ -11,6 +11,7 @@ import styles from './ResetPasswordPage.module.css'
 
 // Выполняет логику ResetPasswordPage в текущем модуле.
 function ResetPasswordPage() {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const { token } = useParams<{ token: string }>()
   const { status, error } = useAppSelector((state) => state.auth)
@@ -19,8 +20,10 @@ function ResetPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [localError, setLocalError] = useState<string | null>(null)
 
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isLoading = status === 'loading'
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     dispatch(resetAuthState())
   }, [dispatch])
@@ -29,11 +32,13 @@ function ResetPasswordPage() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!token) {
       setLocalError('Reset token is missing.')
       return
     }
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (password !== confirmPassword) {
       setLocalError('Passwords do not match.')
       return

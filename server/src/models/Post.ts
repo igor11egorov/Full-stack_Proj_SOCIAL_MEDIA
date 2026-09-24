@@ -11,6 +11,7 @@ export interface IPost extends Document {
   updatedAt: Date
 }
 
+// Хранит значение «postSchema», необходимое для текущего логического блока.
 const postSchema = new mongoose.Schema<IPost>(
   {
     author: {

@@ -8,6 +8,7 @@ import {
 } from '../controllers/notificationController.js'
 import { authMiddleware } from '../middlewares/authMiddleware.js'
 
+// Хранит значение «router», необходимое для текущего логического блока.
 const router = Router()
 
 router.get('/', authMiddleware, getMyNotifications)

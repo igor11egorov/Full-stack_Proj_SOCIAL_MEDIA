@@ -9,6 +9,7 @@ export interface ISubscribe extends Document {
   updatedAt: Date
 }
 
+// Хранит значение «subscribeSchema», необходимое для текущего логического блока.
 const subscribeSchema = new mongoose.Schema<ISubscribe>(
   {
     follower: {

@@ -28,6 +28,7 @@ const initialState: NotificationsState = {
   error: null,
 }
 
+// Хранит значение «notificationsSlice», необходимое для текущего логического блока.
 const notificationsSlice = createSlice({
   name: 'notifications',
   initialState,
@@ -60,6 +61,7 @@ const notificationsSlice = createSlice({
       })
       .addCase(markNotificationAsRead.fulfilled, (state, action) => {
         state.updateStatus = 'idle'
+        // Хранит значение «wasUnread», необходимое для текущего логического блока.
         const wasUnread = state.items.some(
           (notification) =>
             notification._id === action.payload._id && !notification.isRead,
@@ -70,6 +72,7 @@ const notificationsSlice = createSlice({
             ? { ...notification, isRead: true }
             : notification,
         )
+        // Проверяет условие и выбирает дальнейший сценарий выполнения.
         if (wasUnread) {
           state.unreadCount = Math.max(0, state.unreadCount - 1)
         }

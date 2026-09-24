@@ -16,9 +16,13 @@ import { fetchMyProfile } from '../../entities/user/model/profileThunks'
 import { useAppDispatch, useAppSelector } from '../../app/providers/hooks'
 import styles from './CreatePostPage.module.css'
 
+// Задаёт ограничение, используемое при проверке или отображении данных.
 const maxDescriptionLength = 200
+// Задаёт ограничение, используемое при проверке или отображении данных.
 const maxImagesCount = 10
+// Задаёт ограничение, используемое при проверке или отображении данных.
 const maxImageSizeBytes = 10 * 1024 * 1024
+// Задаёт ограничение, используемое при проверке или отображении данных.
 const maxImageSizeMb = maxImageSizeBytes / 1024 / 1024
 
 type SelectedImage = {
@@ -29,7 +33,9 @@ type SelectedImage = {
 
 // Выполняет логику CreatePostPage в текущем модуле.
 function CreatePostPage() {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
+  // Хранит значение «navigate», необходимое для текущего логического блока.
   const navigate = useNavigate()
   const { myProfile } = useAppSelector((state) => state.profile)
   const { createStatus, error } = useAppSelector((state) => state.posts)
@@ -38,14 +44,22 @@ function CreatePostPage() {
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [isEmojiOpen, setIsEmojiOpen] = useState(false)
   const [uploadError, setUploadError] = useState<string | null>(null)
+  // Хранит значение «fileInputRef», необходимое для текущего логического блока.
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  // Хранит значение «selectedImagesRef», необходимое для текущего логического блока.
   const selectedImagesRef = useRef<SelectedImage[]>([])
 
+  // Хранит значение «avatar», необходимое для текущего логического блока.
   const avatar = myProfile?.avatar || '/icons/ICH_avatar.png'
+  // Хранит значение «username», необходимое для текущего логического блока.
   const username = myProfile?.username || 'user'
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isLoading = createStatus === 'loading'
+  // Хранит значение «canSubmit», необходимое для текущего логического блока.
   const canSubmit = selectedImages.length > 0 && !isLoading
+  // Хранит значение «canAddMoreImages», необходимое для текущего логического блока.
   const canAddMoreImages = selectedImages.length < maxImagesCount
+  // Хранит значение «activeImage», необходимое для текущего логического блока.
   const activeImage = selectedImages[activeImageIndex] ?? selectedImages[0]
   // Обрабатывает действие пользователя: EmojiClick.
   const handleEmojiClick = (emojiData: EmojiClickData) => {
@@ -54,16 +68,20 @@ function CreatePostPage() {
     )
   }
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!myProfile) {
       dispatch(fetchMyProfile())
     }
   }, [dispatch, myProfile])
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     selectedImagesRef.current = selectedImages
   }, [selectedImages])
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     return () => {
       selectedImagesRef.current.forEach((image) =>
@@ -80,15 +98,20 @@ function CreatePostPage() {
 
   // Обрабатывает действие пользователя: ImageChange.
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    // Хранит значение «files», необходимое для текущего логического блока.
     const files = Array.from(event.target.files ?? [])
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (files.length === 0) {
       return
     }
 
+    // Хранит значение «validFiles», необходимое для текущего логического блока.
     const validFiles = files.filter((file) => file.size <= maxImageSizeBytes)
+    // Хранит значение «oversizedFiles», необходимое для текущего логического блока.
     const oversizedFiles = files.filter((file) => file.size > maxImageSizeBytes)
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (oversizedFiles.length > 0) {
       setUploadError(
         `Each image must be smaller than ${maxImageSizeMb} MB. ${oversizedFiles.length} file(s) were not added.`,
@@ -97,13 +120,16 @@ function CreatePostPage() {
       setUploadError(null)
     }
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (validFiles.length === 0) {
       event.target.value = ''
       return
     }
 
     setSelectedImages((currentImages) => {
+      // Хранит значение «remainingSlots», необходимое для текущего логического блока.
       const remainingSlots = maxImagesCount - currentImages.length
+      // Хранит значение «imagesToAdd», необходимое для текущего логического блока.
       const imagesToAdd = validFiles
         .slice(0, remainingSlots)
         .map((file, index) => ({
@@ -112,6 +138,7 @@ function CreatePostPage() {
           preview: URL.createObjectURL(file),
         }))
 
+      // Хранит значение «nextImages», необходимое для текущего логического блока.
       const nextImages = [...currentImages, ...imagesToAdd]
       setActiveImageIndex(currentImages.length)
 
@@ -124,12 +151,15 @@ function CreatePostPage() {
   // Обрабатывает действие пользователя: RemoveImage.
   const handleRemoveImage = (imageId: string) => {
     setSelectedImages((currentImages) => {
+      // Хранит значение «imageToRemove», необходимое для текущего логического блока.
       const imageToRemove = currentImages.find((image) => image.id === imageId)
 
+      // Проверяет условие и выбирает дальнейший сценарий выполнения.
       if (imageToRemove) {
         URL.revokeObjectURL(imageToRemove.preview)
       }
 
+      // Хранит значение «nextImages», необходимое для текущего логического блока.
       const nextImages = currentImages.filter((image) => image.id !== imageId)
       setActiveImageIndex((currentIndex) =>
         Math.min(currentIndex, Math.max(nextImages.length - 1, 0)),
@@ -157,18 +187,22 @@ function CreatePostPage() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (selectedImages.length === 0) {
       return
     }
 
+    // Хранит значение «formData», необходимое для текущего логического блока.
     const formData = new FormData()
     selectedImages.forEach((image) => {
       formData.append('images', image.file)
     })
     formData.append('description', description.trim())
 
+    // Хранит значение «result», необходимое для текущего логического блока.
     const result = await dispatch(createPost(formData))
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (createPost.fulfilled.match(result)) {
       navigate('/profile')
     }

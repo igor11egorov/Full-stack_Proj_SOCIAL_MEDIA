@@ -12,6 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../../../../app/providers/hooks'
 import styles from './NotificationsPanel.module.css'
 
+// Хранит значение «getUserId», необходимое для текущего логического блока.
 const getUserId = (
   user:
     | { _id?: string; id?: string; userId?: string }
@@ -35,23 +36,29 @@ const getSenderAvatar = (notification: Notification) =>
 
 // Возвращает вычисленные данные: NotificationAgeLabel.
 const getNotificationAgeLabel = (createdAt: string) => {
+  // Хранит значение «diffMinutes», необходимое для текущего логического блока.
   const diffMinutes = Math.max(
     1,
     Math.floor((Date.now() - new Date(createdAt).getTime()) / 60000),
   )
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffMinutes < 60) {
     return `${diffMinutes}m`
   }
 
+  // Хранит значение «diffHours», необходимое для текущего логического блока.
   const diffHours = Math.floor(diffMinutes / 60)
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffHours < 24) {
     return `${diffHours}h`
   }
 
+  // Хранит значение «diffDays», необходимое для текущего логического блока.
   const diffDays = Math.floor(diffHours / 24)
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffDays < 7) {
     return `${diffDays}d`
   }
@@ -61,10 +68,12 @@ const getNotificationAgeLabel = (createdAt: string) => {
 
 // Возвращает вычисленные данные: NotificationAction.
 const getNotificationAction = (notification: Notification) => {
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (notification.type === 'like') {
     return 'liked your photo.'
   }
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (notification.type === 'comment') {
     return 'commented your photo.'
   }
@@ -74,8 +83,10 @@ const getNotificationAction = (notification: Notification) => {
 
 // Возвращает вычисленные данные: NotificationPostImage.
 const getNotificationPostImage = (notification: Notification) => {
+  // Хранит значение «post», необходимое для текущего логического блока.
   const post = notification.post
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (!post || typeof post === 'string') {
     return ''
   }
@@ -85,17 +96,20 @@ const getNotificationPostImage = (notification: Notification) => {
 
 // Выполняет логику NotificationsPanel в текущем модуле.
 function NotificationsPanel() {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const { items, status, error, unreadCount, updateStatus } = useAppSelector(
     (state) => state.notifications,
   )
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     dispatch(fetchNotifications())
   }, [dispatch])
 
   // Обрабатывает действие пользователя: NotificationClick.
   const handleNotificationClick = (notification: Notification) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!notification.isRead) {
       dispatch(markNotificationAsRead(notification._id))
     }
@@ -103,6 +117,7 @@ function NotificationsPanel() {
 
   // Обрабатывает действие пользователя: MarkAllRead.
   const handleMarkAllRead = () => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (unreadCount > 0 && updateStatus !== 'loading') {
       dispatch(markAllNotificationsAsRead())
     }
@@ -140,10 +155,14 @@ function NotificationsPanel() {
       {items.length > 0 && (
         <ul className={styles.list}>
           {items.map((notification) => {
+            // Хранит значение «senderId», необходимое для текущего логического блока.
             const senderId = getUserId(notification.sender)
+            // Хранит значение «senderUsername», необходимое для текущего логического блока.
             const senderUsername = getSenderUsername(notification)
+            // Хранит значение «postImage», необходимое для текущего логического блока.
             const postImage = getNotificationPostImage(notification)
 
+            // Проверяет условие и выбирает дальнейший сценарий выполнения.
             if (!senderId || !senderUsername) {
               return null
             }

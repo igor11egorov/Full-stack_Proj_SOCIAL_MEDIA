@@ -25,27 +25,33 @@ import { getPostImages } from '../../shared/lib/postImages'
 import CommentRow from '../../entities/comment/ui/CommentRow'
 import styles from './PostPreviewModal.module.css'
 
+// Хранит значение «getUserId», необходимое для текущего логического блока.
 const getUserId = (
   user: { _id?: string; id?: string; userId?: string } | null | undefined,
 ) => user?._id || user?.userId || user?.id || ''
 
 // это функция для отображения времени комментария
 const getAgeLabel = (createdAt: string) => {
+  // Хранит значение «diffMinutes», необходимое для текущего логического блока.
   const diffMinutes = Math.max(
     1,
     Math.floor((Date.now() - new Date(createdAt).getTime()) / 60000),
   )
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffMinutes < 60) {
     return `${diffMinutes}m`
   }
 
+  // Хранит значение «diffHours», необходимое для текущего логического блока.
   const diffHours = Math.floor(diffMinutes / 60)
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (diffHours < 24) {
     return `${diffHours}h`
   }
 
+  // Хранит значение «diffDays», необходимое для текущего логического блока.
   const diffDays = Math.floor(diffHours / 24)
 
   return diffDays === 1 ? '1 day' : `${diffDays} days`
@@ -73,21 +79,30 @@ function PostPreviewModal({
   isFollowLoading = false,
   onToggleFollowAuthor,
 }: PostPreviewModalProps) {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
+  // Хранит значение «avatar», необходимое для текущего логического блока.
   const avatar = post.author.avatar || '/icons/ICH_avatar.png'
 
+  // Хранит значение «authorProfileUrl», необходимое для текущего логического блока.
   const authorProfileUrl = `/users/${getUserId(post.author)}`
 
+  // Хранит значение «images», необходимое для текущего логического блока.
   const images = getPostImages(post)
   const [currentImageState, setCurrentImageState] = useState({
     postId: post._id,
     index: 0,
   })
+  // Хранит значение «currentImageIndex», необходимое для текущего логического блока.
   const currentImageIndex =
     currentImageState.postId === post._id ? currentImageState.index : 0
+  // Хранит значение «currentImage», необходимое для текущего логического блока.
   const currentImage = images[currentImageIndex] ?? ''
+  // Хранит значение «hasMultipleImages», необходимое для текущего логического блока.
   const hasMultipleImages = images.length > 1
+  // Хранит значение «touchStartXRef», необходимое для текущего логического блока.
   const touchStartXRef = useRef<number | null>(null)
+  // Хранит значение «touchStartYRef», необходимое для текущего логического блока.
   const touchStartYRef = useRef<number | null>(null)
   const [commentText, setCommentText] = useState('')
   const [isEmojiOpen, setIsEmojiOpen] = useState(false)
@@ -99,6 +114,7 @@ function PostPreviewModal({
   // Обрабатывает действие пользователя: AddComment.
   const handleAddComment = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!commentText.trim()) {
       return
     }
@@ -114,23 +130,31 @@ function PostPreviewModal({
   }
 
   const { myProfile } = useAppSelector((state) => state.profile)
+  // Хранит значение «postLikes», необходимое для текущего логического блока.
   const postLikes = useAppSelector((state) => state.likes.byPostId[post._id])
+  // Хранит значение «postComments», необходимое для текущего логического блока.
   const postComments = useAppSelector(
     (state) => state.comments.byPostId[post._id],
   )
 
+  // Задаёт ограничение, используемое при проверке или отображении данных.
   const likesCount = postLikes?.count ?? 0
+  // Хранит значение «currentUserId», необходимое для текущего логического блока.
   const currentUserId = getUserId(myProfile)
 
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isPostLikedFromServer =
     postLikes?.likes.some((like) => getUserId(like.user) === currentUserId) ??
     false
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isPostLiked =
     likedOverride?.postId === post._id
       ? likedOverride.value
       : isPostLikedFromServer
+  // Хранит значение «likesLabel», необходимое для текущего логического блока.
   const likesLabel = `${likesCount} ${likesCount === 1 ? 'like' : 'likes'}`
 
+  // Хранит значение «comments», необходимое для текущего логического блока.
   const comments = postComments?.comments ?? []
 
   // Обрабатывает действие пользователя: ToggleLike.
@@ -144,22 +168,27 @@ function PostPreviewModal({
     dispatch(deletePostComment({ postId: post._id, commentId }))
   }
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     dispatch(fetchPostLikes(post._id))
     dispatch(fetchPostComments(post._id))
   }, [dispatch, post._id])
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
     // Обрабатывает действие пользователя: KeyDown.
     const handleKeyDown = (event: KeyboardEvent) => {
+      // Проверяет условие и выбирает дальнейший сценарий выполнения.
       if (event.key === 'Escape') {
         onClose()
       }
 
+      // Проверяет условие и выбирает дальнейший сценарий выполнения.
       if (event.key === 'ArrowLeft') {
         onPrevious?.()
       }
 
+      // Проверяет условие и выбирает дальнейший сценарий выполнения.
       if (event.key === 'ArrowRight') {
         onNext?.()
       }
@@ -180,22 +209,29 @@ function PostPreviewModal({
 
   // Обрабатывает действие пользователя: TouchEnd.
   const handleTouchEnd = (event: TouchEvent<HTMLElement>) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (touchStartXRef.current === null || touchStartYRef.current === null) {
       return
     }
 
+    // Хранит значение «touchEndX», необходимое для текущего логического блока.
     const touchEndX = event.changedTouches[0]?.clientX
+    // Хранит значение «touchEndY», необходимое для текущего логического блока.
     const touchEndY = event.changedTouches[0]?.clientY
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (touchEndX === undefined || touchEndY === undefined) {
       return
     }
 
+    // Хранит значение «horizontalDistance», необходимое для текущего логического блока.
     const horizontalDistance = touchStartXRef.current - touchEndX
+    // Хранит значение «swipeDistance», необходимое для текущего логического блока.
     const swipeDistance = touchStartYRef.current - touchEndY
     touchStartXRef.current = null
     touchStartYRef.current = null
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (
       Math.abs(horizontalDistance) > 70 &&
       Math.abs(horizontalDistance) > Math.abs(swipeDistance)
@@ -204,10 +240,12 @@ function PostPreviewModal({
       return
     }
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (Math.abs(swipeDistance) < 50) {
       return
     }
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (swipeDistance > 0) {
       onNext?.()
       return

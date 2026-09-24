@@ -26,6 +26,7 @@ import { getErrorMessage } from '../../shared/api/getErrorMessage'
 import { getPostCoverImage, getPostImages } from '../../shared/lib/postImages'
 import styles from './UserProfilePage.module.css'
 
+// Задаёт базовый адрес API, используемый запросами этого модуля.
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 type UserResponse = {
@@ -38,6 +39,7 @@ type PostsResponse = {
   posts: Post[]
 }
 
+// Хранит значение «getUserId», необходимое для текущего логического блока.
 const getUserId = (
   user: { _id?: string; id?: string; userId?: string } | null | undefined,
 ) => user?._id || user?.userId || user?.id || ''
@@ -45,7 +47,9 @@ const getUserId = (
 // Выполняет логику UserProfilePage в текущем модуле.
 function UserProfilePage() {
   const { userId } = useParams<{ userId: string }>()
+  // Хранит значение «navigate», необходимое для текущего логического блока.
   const navigate = useNavigate()
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const { myProfile } = useAppSelector((state) => state.profile)
   const {
@@ -68,27 +72,40 @@ function UserProfilePage() {
   const [subscriptionsModal, setSubscriptionsModal] = useState<
     'followers' | 'following' | null
   >(null)
+  // Хранит значение «selectedPost», необходимое для текущего логического блока.
   const selectedPost =
     selectedPostIndex === null ? null : (posts[selectedPostIndex] ?? null)
+  // Хранит значение «currentUserId», необходимое для текущего логического блока.
   const currentUserId = getUserId(myProfile)
+  // Хранит значение «subscriptionSummary», необходимое для текущего логического блока.
   const subscriptionSummary = userId ? byUserId[userId] : undefined
+  // Задаёт ограничение, используемое при проверке или отображении данных.
   const followersCount = subscriptionSummary?.followersCount ?? 0
+  // Задаёт ограничение, используемое при проверке или отображении данных.
   const followingCount = subscriptionSummary?.followingCount ?? 0
+  // Хранит результат проверки условия для последующей логики интерфейса.
   const isFollowing = subscriptionSummary?.isFollowing ?? false
+  // Хранит значение «followersList», необходимое для текущего логического блока.
   const followersList = userId ? (followersByUserId[userId] ?? []) : []
+  // Хранит значение «followingList», необходимое для текущего логического блока.
   const followingList = userId ? (followingByUserId[userId] ?? []) : []
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!myProfile) {
       dispatch(fetchMyProfile())
     }
   }, [dispatch, myProfile])
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!userId) {
       return
     }
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (currentUserId && userId === currentUserId) {
       navigate('/profile', { replace: true })
       return
@@ -96,6 +113,7 @@ function UserProfilePage() {
 
     // Выполняет логику loadProfile в текущем модуле.
     const loadProfile = async () => {
+      // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
       try {
         setProfileStatus('loading')
         setProfileError(null)
@@ -119,17 +137,22 @@ function UserProfilePage() {
     loadProfile()
   }, [currentUserId, navigate, userId])
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (userId && currentUserId && userId !== currentUserId) {
       dispatch(fetchSubscriptionSummary({ userId, currentUserId }))
     }
   }, [currentUserId, dispatch, userId])
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!userId || !subscriptionsModal) {
       return
     }
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (subscriptionsModal === 'followers') {
       dispatch(fetchUserFollowers(userId))
       return
@@ -140,10 +163,12 @@ function UserProfilePage() {
 
   // Обрабатывает действие пользователя: ToggleFollow.
   const handleToggleFollow = async () => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!userId || followStatus === 'loading') {
       return
     }
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (isFollowing) {
       dispatch(unfollowUser(userId))
       return
@@ -154,6 +179,7 @@ function UserProfilePage() {
 
   // Обрабатывает действие пользователя: OpenMessages.
   const handleOpenMessages = () => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!userId || !user) {
       return
     }
@@ -161,31 +187,40 @@ function UserProfilePage() {
     navigate('/messages')
   }
 
+  // Хранит значение «handleStatKeyDown», необходимое для текущего логического блока.
   const handleStatKeyDown = (
     event: ReactKeyboardEvent<HTMLDivElement>,
     modal: 'followers' | 'following',
   ) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
       setSubscriptionsModal(modal)
     }
   }
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (profileStatus === 'idle' || profileStatus === 'loading') {
     return <Spinner label="Loading profile..." />
   }
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (profileStatus === 'failed') {
     return <p className={styles.errorText}>{profileError}</p>
   }
 
+  // Проверяет условие и выбирает дальнейший сценарий выполнения.
   if (!user) {
     return <p className={styles.stateText}>Profile not found.</p>
   }
 
+  // Хранит значение «avatar», необходимое для текущего логического блока.
   const avatar = user.avatar || '/icons/ICH_avatar.png'
+  // Хранит значение «bio», необходимое для текущего логического блока.
   const bio = user.bio?.trim()
+  // Хранит значение «website», необходимое для текущего логического блока.
   const website = user.website?.trim()
+  // Хранит значение «websiteHref», необходимое для текущего логического блока.
   const websiteHref =
     website && (website.startsWith('http') ? website : `https://${website}`)
 
@@ -286,6 +321,7 @@ function UserProfilePage() {
           onToggleFollowAuthor={handleToggleFollow}
           onPrevious={() =>
             setSelectedPostIndex((currentIndex) => {
+              // Проверяет условие и выбирает дальнейший сценарий выполнения.
               if (currentIndex === null) {
                 return currentIndex
               }
@@ -295,6 +331,7 @@ function UserProfilePage() {
           }
           onNext={() =>
             setSelectedPostIndex((currentIndex) => {
+              // Проверяет условие и выбирает дальнейший сценарий выполнения.
               if (currentIndex === null) {
                 return currentIndex
               }

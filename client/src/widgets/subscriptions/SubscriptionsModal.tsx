@@ -62,7 +62,9 @@ function SubscriptionsModal({
           {!isLoading && !error && users.length > 0 && (
             <ul className={styles.usersList}>
               {users.map((user) => {
+                // Хранит значение «userId», необходимое для текущего логического блока.
                 const userId = getUserId(user)
+                // Хранит значение «avatar», необходимое для текущего логического блока.
                 const avatar = user.avatar || '/icons/ICH_avatar.png'
 
                 return (

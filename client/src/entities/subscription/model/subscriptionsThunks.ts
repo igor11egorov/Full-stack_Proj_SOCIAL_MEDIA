@@ -6,6 +6,7 @@ import axios from 'axios'
 import type { User } from '../../user/types/user'
 import { getErrorMessage } from '../../../shared/api/getErrorMessage'
 
+// Задаёт базовый адрес API, используемый запросами этого модуля.
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 type SubscriptionUser = {
@@ -53,6 +54,7 @@ type FollowingListResponse = {
 
 // Возвращает вычисленные данные: AuthHeaders.
 const getAuthHeaders = () => {
+  // Хранит значение «token», необходимое для текущего логического блока.
   const token = localStorage.getItem('token')
 
   return token ? { Authorization: `Bearer ${token}` } : undefined
@@ -62,13 +64,16 @@ const getAuthHeaders = () => {
 const getUserId = (user: SubscriptionUser | string) =>
   typeof user === 'string' ? user : user._id || user.userId || user.id || ''
 
+// Хранит значение «fetchSubscriptionSummary», необходимое для текущего логического блока.
 export const fetchSubscriptionSummary = createAsyncThunk(
   'subscriptions/fetchSummary',
   async (
     { userId, currentUserId }: { userId: string; currentUserId: string },
     { rejectWithValue },
   ) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «headers», необходимое для текущего логического блока.
       const headers = getAuthHeaders()
       const [followersResponse, followingResponse] = await Promise.all([
         axios.get<FollowersResponse>(
@@ -101,9 +106,11 @@ export const fetchSubscriptionSummary = createAsyncThunk(
 export const followUser = createAsyncThunk(
   'subscriptions/followUser',
   async (userId: string, { rejectWithValue }) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!userId) {
       return rejectWithValue('User id is required')
     }
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
       await axios.post(
         `${API_URL}/api/subscriptions/${userId}`,
@@ -122,9 +129,11 @@ export const followUser = createAsyncThunk(
 export const unfollowUser = createAsyncThunk(
   'subscriptions/unfollowUser',
   async (userId: string, { rejectWithValue }) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!userId) {
       return rejectWithValue('User id is required')
     }
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
       await axios.delete(`${API_URL}/api/subscriptions/${userId}`, {
         headers: getAuthHeaders(),
@@ -141,11 +150,14 @@ export const unfollowUser = createAsyncThunk(
 export const fetchUserFollowers = createAsyncThunk(
   'subscriptions/fetchUserFollowers',
   async (userId: string, { rejectWithValue }) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!userId) {
       return rejectWithValue('User id is required')
     }
 
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.get<FollowersListResponse>(
         `${API_URL}/api/subscriptions/${userId}/followers`,
         { headers: getAuthHeaders() },
@@ -168,11 +180,14 @@ export const fetchUserFollowers = createAsyncThunk(
 export const fetchUserFollowing = createAsyncThunk(
   'subscriptions/fetchUserFollowing',
   async (userId: string, { rejectWithValue }) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!userId) {
       return rejectWithValue('User id is required')
     }
 
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.get<FollowingListResponse>(
         `${API_URL}/api/subscriptions/${userId}/following`,
         { headers: getAuthHeaders() },

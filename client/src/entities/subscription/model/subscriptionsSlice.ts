@@ -37,12 +37,14 @@ const initialState: SubscriptionsState = {
   error: null,
 }
 
+// Хранит значение «getDefaultSummary», необходимое для текущего логического блока.
 const getDefaultSummary = (): SubscriptionSummary => ({
   followersCount: 0,
   followingCount: 0,
   isFollowing: false,
 })
 
+// Хранит значение «subscriptionsSlice», необходимое для текущего логического блока.
 const subscriptionsSlice = createSlice({
   name: 'subscriptions',
   initialState,
@@ -76,6 +78,7 @@ const subscriptionsSlice = createSlice({
         state.listStatus = 'succeeded'
         state.followersByUserId[action.payload.userId] = action.payload.users
 
+        // Хранит значение «summary», необходимое для текущего логического блока.
         const summary =
           state.byUserId[action.payload.userId] ?? getDefaultSummary()
 
@@ -99,6 +102,7 @@ const subscriptionsSlice = createSlice({
         state.listStatus = 'succeeded'
         state.followingByUserId[action.payload.userId] = action.payload.users
 
+        // Хранит значение «summary», необходимое для текущего логического блока.
         const summary =
           state.byUserId[action.payload.userId] ?? getDefaultSummary()
 
@@ -120,6 +124,7 @@ const subscriptionsSlice = createSlice({
       })
       .addCase(followUser.fulfilled, (state, action) => {
         state.followStatus = 'idle'
+        // Хранит значение «summary», необходимое для текущего логического блока.
         const summary = state.byUserId[action.payload] ?? getDefaultSummary()
         state.byUserId[action.payload] = {
           ...summary,
@@ -140,6 +145,7 @@ const subscriptionsSlice = createSlice({
       })
       .addCase(unfollowUser.fulfilled, (state, action) => {
         state.followStatus = 'idle'
+        // Хранит значение «summary», необходимое для текущего логического блока.
         const summary = state.byUserId[action.payload] ?? getDefaultSummary()
         state.byUserId[action.payload] = {
           ...summary,

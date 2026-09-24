@@ -28,12 +28,14 @@ const initialState: LikesCommentState = {
   error: null,
 }
 
+// Хранит значение «getDefaultCommentLikes», необходимое для текущего логического блока.
 const getDefaultCommentLikes = (): CommentLikesState => ({
   likes: [],
   count: 0,
   isLiked: false,
 })
 
+// Хранит значение «likesCommentSlice», необходимое для текущего логического блока.
 const likesCommentSlice = createSlice({
   name: 'commentLikes',
   initialState,
@@ -66,6 +68,7 @@ const likesCommentSlice = createSlice({
       .addCase(toggleCommentLike.fulfilled, (state, action) => {
         state.toggleStatus = 'idle'
 
+        // Хранит значение «current», необходимое для текущего логического блока.
         const current =
           state.byCommentId[action.payload.commentId] ??
           getDefaultCommentLikes()

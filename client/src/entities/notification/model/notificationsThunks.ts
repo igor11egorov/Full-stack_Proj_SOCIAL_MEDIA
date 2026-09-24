@@ -6,6 +6,7 @@ import axios from 'axios'
 import type { User } from '../../user/types/user'
 import { getErrorMessage } from '../../../shared/api/getErrorMessage'
 
+// Задаёт базовый адрес API, используемый запросами этого модуля.
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 export type NotificationPost = {
@@ -53,6 +54,7 @@ type MarkAllResponse = {
 
 // Возвращает вычисленные данные: AuthHeaders.
 const getAuthHeaders = () => {
+  // Хранит значение «token», необходимое для текущего логического блока.
   const token = localStorage.getItem('token')
 
   return token ? { Authorization: `Bearer ${token}` } : undefined
@@ -62,7 +64,9 @@ const getAuthHeaders = () => {
 export const fetchNotifications = createAsyncThunk(
   'notifications/fetchNotifications',
   async (_, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.get<NotificationsResponse>(
         `${API_URL}/api/notifications`,
         { headers: getAuthHeaders() },
@@ -85,11 +89,14 @@ export const fetchNotifications = createAsyncThunk(
 export const markNotificationAsRead = createAsyncThunk(
   'notifications/markNotificationAsRead',
   async (notificationId: string, { rejectWithValue }) => {
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!notificationId) {
       return rejectWithValue('Notification id is required')
     }
 
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.patch<NotificationResponse>(
         `${API_URL}/api/notifications/${notificationId}/read`,
         {},
@@ -109,7 +116,9 @@ export const markNotificationAsRead = createAsyncThunk(
 export const markAllNotificationsAsRead = createAsyncThunk(
   'notifications/markAllNotificationsAsRead',
   async (_, { rejectWithValue }) => {
+    // Выполняет основную операцию, для которой ниже предусмотрена обработка ошибок.
     try {
+      // Хранит значение «response», необходимое для текущего логического блока.
       const response = await axios.patch<MarkAllResponse>(
         `${API_URL}/api/notifications/read-all`,
         {},

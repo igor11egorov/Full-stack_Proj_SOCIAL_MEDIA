@@ -2,6 +2,7 @@
 // Основные части: обработка запроса до контроллера или единый формат ошибки.
 import type { Request, Response } from 'express'
 
+// Хранит значение «notFound», необходимое для текущего логического блока.
 export const notFound = (req: Request, res: Response): void => {
   res.status(404).json({
     success: false,

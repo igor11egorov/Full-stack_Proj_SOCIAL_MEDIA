@@ -5,6 +5,7 @@ import { env } from '../config/env.js'
 
 // Генерирует значение: Token.
 function generateToken(userId: string): string {
+  // Хранит значение «token», необходимое для текущего логического блока.
   const token = jwt.sign(
     {
       id: userId,

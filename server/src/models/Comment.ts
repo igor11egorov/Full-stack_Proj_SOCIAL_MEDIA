@@ -10,6 +10,7 @@ export interface IComment extends Document {
   updatedAt: Date
 }
 
+// Хранит значение «commentSchema», необходимое для текущего логического блока.
 const commentSchema = new mongoose.Schema<IComment>(
   {
     user: {

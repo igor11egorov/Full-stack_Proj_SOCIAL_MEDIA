@@ -8,6 +8,7 @@ import { searchUsers } from '../../model/searchThunks'
 import { useAppDispatch, useAppSelector } from '../../../../app/providers/hooks'
 import styles from './SearchPanel.module.css'
 
+// Хранит значение «getUserId», необходимое для текущего логического блока.
 const getUserId = (
   user: { _id?: string; id?: string; userId?: string } | null | undefined,
 ) => user?._id || user?.userId || user?.id || ''
@@ -18,19 +19,24 @@ type SearchPanelProps = {
 
 // Выполняет логику SearchPanel в текущем модуле.
 function SearchPanel({ onClose }: SearchPanelProps) {
+  // Хранит значение «dispatch», необходимое для текущего логического блока.
   const dispatch = useAppDispatch()
   const { users, status, error } = useAppSelector((state) => state.search)
 
   const [searchValue, setSearchValue] = useState('')
 
+  // Запускает побочный эффект и синхронизирует данные или состояние при изменении зависимостей.
   useEffect(() => {
+    // Хранит значение «query», необходимое для текущего логического блока.
     const query = searchValue.trim()
 
+    // Проверяет условие и выбирает дальнейший сценарий выполнения.
     if (!query) {
       dispatch(clearSearchResults())
       return
     }
 
+    // Хранит значение «timeoutId», необходимое для текущего логического блока.
     const timeoutId = window.setTimeout(() => {
       dispatch(searchUsers(query))
     }, 300)
