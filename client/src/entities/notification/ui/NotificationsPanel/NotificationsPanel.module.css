@@ -1,0 +1,157 @@
+.notificationsPanel {
+  width: 100%;
+  color: #000000;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 125%;
+}
+
+.readAllButton {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #0095f6;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 123%;
+  cursor: pointer;
+}
+
+.readAllButton:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.subtitle {
+  margin: 0 0 30px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 125%;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  column-gap: 18px;
+  align-items: center;
+}
+
+.unread {
+  position: relative;
+}
+
+.unread::before {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  left: -16px;
+  border-radius: 50%;
+  background: #0095f6;
+  content: "";
+}
+
+.avatarLink {
+  display: block;
+  width: 44px;
+  height: 44px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.text,
+.textButton {
+  margin: 0;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 125%;
+}
+
+.textButton {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.text span,
+.textButton span {
+  font-weight: 700;
+}
+
+.text time,
+.textButton time {
+  color: #737373;
+  font-style: normal;
+}
+
+.postImage {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.postImagePlaceholder {
+  width: 44px;
+  height: 44px;
+}
+
+.stateText,
+.errorText {
+  margin: 0;
+  color: #737373;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 129%;
+}
+
+.errorText {
+  color: #ed4956;
+}
+
+@media (max-width: 560px) {
+  .item {
+    grid-template-columns: 40px 1fr 40px;
+    column-gap: 12px;
+  }
+
+  .avatar,
+  .postImage {
+    width: 40px;
+    height: 40px;
+  }
+
+  .avatarLink,
+  .postImagePlaceholder {
+    width: 40px;
+    height: 40px;
+  }
+}

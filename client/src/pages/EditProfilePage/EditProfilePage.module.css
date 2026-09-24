@@ -1,0 +1,258 @@
+.page {
+  width: min(944px, calc(100vw - 244px - 48px));
+  min-height: 740px;
+  margin: 56px auto 72px;
+}
+
+.form {
+  width: 610px;
+}
+
+.title {
+  margin: 0 0 64px;
+  color: #000000;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 125%;
+}
+
+.summary {
+  width: 610px;
+  height: 88px;
+  display: grid;
+  grid-template-columns: 56px 1fr 114px;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 42px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: #efefef;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border: 1px solid #dbdbdb;
+  border-radius: 50%;
+  background: #ffffff;
+  object-fit: cover;
+}
+
+.summaryText {
+  min-width: 0;
+}
+
+.summaryText p {
+  margin: 0 0 6px;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 125%;
+}
+
+.summaryText span {
+  display: block;
+  overflow: hidden;
+  color: #737373;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 125%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.photoButton,
+.saveButton,
+.exitButton {
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: #0095f6;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 129%;
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.photoButton {
+  width: 114px;
+}
+
+.photoButton:hover,
+.saveButton:hover {
+  background: #1877f2;
+}
+
+.exitButton {
+  width: 268px;
+  background: #ed4956;
+}
+
+.exitButton:hover {
+  background: #d93645;
+}
+
+.photoButton:disabled,
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.fileInput {
+  display: none;
+}
+
+.field {
+  display: block;
+  margin-bottom: 30px;
+}
+
+.field > span {
+  display: block;
+  margin-bottom: 10px;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 125%;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #000000;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 129%;
+  outline: none;
+}
+
+.field input {
+  height: 44px;
+  padding: 0 20px;
+}
+
+.field input:focus,
+.field textarea:focus,
+.textareaWrap:focus-within {
+  border-color: #a8a8a8;
+}
+
+.websiteField {
+  position: relative;
+}
+
+.websiteIcon {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.websiteField input {
+  padding-left: 48px;
+  color: #00376b;
+  font-weight: 600;
+}
+
+.textareaWrap {
+  position: relative;
+  width: 100%;
+  min-height: 62px;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.field textarea {
+  min-height: 62px;
+  resize: none;
+  padding: 8px 74px 8px 20px;
+  border: 0;
+}
+
+.counter {
+  position: absolute;
+  right: 18px;
+  bottom: 10px;
+  color: #737373;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 133%;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.saveButton,
+.exitButton {
+  flex: 1 1 0;
+  width: auto;
+}
+
+.errorText,
+.stateText {
+  color: #ed4956;
+  font-size: 14px;
+  line-height: 129%;
+}
+
+.stateText {
+  margin: 120px auto;
+  color: #737373;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .page {
+    width: calc(100vw - 72px - 32px);
+  }
+
+  .form,
+  .summary {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    width: calc(100vw - 24px);
+    margin-top: 32px;
+  }
+
+  .title {
+    margin-bottom: 32px;
+  }
+
+  .summary {
+    height: auto;
+    grid-template-columns: 56px 1fr;
+  }
+
+  .photoButton {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .saveButton,
+  .exitButton {
+    width: 100%;
+  }
+}

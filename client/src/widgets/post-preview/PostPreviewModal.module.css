@@ -1,0 +1,498 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.65);
+  cursor: default;
+}
+
+.navButton {
+  width: 44px;
+  height: 44px;
+  position: fixed;
+  top: 50%;
+  z-index: 32;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #000000;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: opacity 0.15s ease;
+}
+
+.navButton:hover {
+  opacity: 0.75;
+}
+
+.navButtonLeft {
+  left: 28px;
+}
+
+.navButtonRight {
+  right: 28px;
+}
+
+.modal {
+  width: min(1100px, calc(100vw - 80px));
+  height: min(720px, calc(100vh - 80px));
+  max-height: calc(100vh - 80px);
+  position: relative;
+  z-index: 31;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) 420px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.imageWrap {
+  min-height: 0;
+  position: relative;
+  background: #000000;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.imageNavButton {
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.86);
+  color: #000000;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.imageNavButtonLeft {
+  left: 14px;
+}
+
+.imageNavButtonRight {
+  right: 14px;
+}
+
+.imageCounter {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.details {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  border-left: 1px solid #dbdbdb;
+}
+
+.header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.author,
+.captionRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.author {
+  text-decoration: none;
+}
+
+.authorDot {
+  margin: 0 8px;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.followButton {
+  margin-right: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #0095f6;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 129%;
+  cursor: pointer;
+}
+
+.followButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.closeButton {
+  margin-left: auto;
+}
+
+.avatarRing {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f6c33b, #ff4b3e 42%, #d629d1 78%);
+}
+
+.avatarRing img {
+  width: 38px;
+  height: 38px;
+  display: block;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author strong,
+.captionRow strong,
+.footer strong {
+  color: #000000;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 129%;
+}
+
+.closeButton {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.closeButton::before,
+.closeButton::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: #000000;
+  content: '';
+}
+
+.closeButton::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.closeButton::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.captionArea {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: auto;
+  padding: 18px;
+}
+
+.captionRow {
+  align-items: flex-start;
+  min-height: 44px;
+}
+
+.captionRow p {
+  flex: 1;
+  margin: 5px 0 0;
+  white-space: pre-wrap;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 129%;
+}
+
+.commentMeta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 6px;
+}
+
+.commentMeta,
+.commentMeta time {
+  color: #737373;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 133%;
+}
+
+.captionRow a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.deleteCommentButton {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #737373;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 133%;
+  cursor: pointer;
+}
+
+.deleteCommentButton:hover {
+  color: #ed4956;
+}
+
+.commentLikeButton {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.commentLikeButton svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  fill: transparent;
+  stroke: #000000;
+  stroke-width: 2;
+  transition:
+    fill 0.12s ease,
+    stroke 0.12s ease,
+    transform 0.12s ease;
+}
+
+.commentLikeButton:active svg {
+  transform: scale(0.92);
+}
+
+.footer {
+  display: grid;
+  gap: 8px;
+  padding: 14px 18px;
+  border-top: 1px solid #dbdbdb;
+}
+
+.footer time {
+  color: #737373;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 133%;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.actionButton {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.actions img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.actionButton svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+  fill: transparent;
+  stroke: #000000;
+  stroke-width: 2;
+  transition:
+    fill 0.12s ease,
+    stroke 0.12s ease,
+    transform 0.12s ease;
+}
+
+.likedButton svg {
+  fill: #ed4956;
+  stroke: #ed4956;
+}
+
+.actionButton:active svg {
+  transform: scale(0.92);
+}
+
+.commentBar {
+  position: relative;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  border-top: 1px solid #dbdbdb;
+}
+
+.commentBar input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: #000000;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.commentBar button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #0095f6;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 129%;
+  cursor: pointer;
+}
+
+.smileButton {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.smileButton img {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.emojiPicker {
+  position: absolute;
+  left: 12px;
+  bottom: 48px;
+  z-index: 4;
+  max-width: min(352px, calc(100vw - 120px));
+}
+
+.emojiPicker :global(.EmojiPickerReact) {
+  --epr-picker-border-radius: 8px;
+  --epr-picker-border-color: #dbdbdb;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 900px) {
+  .overlay {
+    left: 72px;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px 16px 16px;
+  }
+
+  .modal {
+    width: min(520px, calc(100vw - 72px - 32px));
+    max-height: calc(100dvh - 32px);
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    overflow: hidden;
+    touch-action: none;
+  }
+
+  .navButton {
+    display: none;
+  }
+
+  .imageWrap {
+    height: min(46dvh, calc(100dvh - 220px), calc(100vw - 72px - 32px));
+    min-height: auto;
+  }
+
+  .image {
+    object-fit: contain;
+  }
+
+  .captionArea {
+    max-height: 18dvh;
+  }
+
+  .details {
+    border-left: 0;
+  }
+
+  .header {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .overlay {
+    padding: 16px 12px 12px;
+  }
+
+  .modal {
+    width: calc(100vw - 72px - 24px);
+    max-height: calc(100dvh - 24px);
+  }
+
+  .imageWrap {
+    height: min(42dvh, calc(100dvh - 200px), calc(100vw - 72px - 24px));
+  }
+}

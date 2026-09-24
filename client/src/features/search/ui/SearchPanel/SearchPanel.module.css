@@ -1,0 +1,144 @@
+.searchPanel {
+  width: 100%;
+  color: #000000;
+}
+
+.title {
+  margin: 0 0 32px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 125%;
+}
+
+.searchField {
+  position: relative;
+  display: block;
+  margin-bottom: 52px;
+}
+
+.input {
+  width: 100%;
+  height: 44px;
+  padding: 0 42px 0 16px;
+  border: 0;
+  border-radius: 8px;
+  outline: none;
+  background: #efefef;
+  color: #000000;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 125%;
+}
+
+.input::placeholder {
+  color: #737373;
+}
+
+.input:focus {
+  box-shadow: inset 0 0 0 1px #dbdbdb;
+}
+
+.clearButton {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #c7c7c7;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.clearButton::before,
+.clearButton::after {
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffffff;
+  content: "";
+}
+
+.clearButton::before {
+  transform: rotate(45deg);
+}
+
+.clearButton::after {
+  transform: rotate(-45deg);
+}
+
+.clearButton:hover {
+  opacity: 0.75;
+}
+
+.recentBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 125%;
+}
+
+.userButton {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #000000;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 129%;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.userButton:hover {
+  opacity: 0.65;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.stateText,
+.errorText {
+  margin: 0;
+  color: #737373;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 129%;
+}
+
+.errorText {
+  color: #ed4956;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
