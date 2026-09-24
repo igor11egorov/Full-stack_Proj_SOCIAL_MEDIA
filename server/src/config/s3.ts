@@ -1,4 +1,5 @@
 // Настраивает клиент AWS S3 для хранения и получения загружаемых файлов.
+// Основные части: экспортируемая логика и зависимости модуля.
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 
 import { env } from './env.js'

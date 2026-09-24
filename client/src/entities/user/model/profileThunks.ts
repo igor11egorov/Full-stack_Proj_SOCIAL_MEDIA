@@ -1,5 +1,6 @@
 // Содержит асинхронные Redux-запросы для получения и обновления профиля текущего пользователя,
 // а также загрузки списка его публикаций через API.
+// Основные части: состояние, редьюсеры и операции с данными сущности.
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import type { Post } from '../../post/types/post'

@@ -1,5 +1,6 @@
 // Отображает модальное окно со списком подписчиков или подписок пользователя,
 // поддерживая загрузку данных, ошибки, закрытие окна и отписку.
+// Основные части: композиция интерфейса, свойства и обработчики взаимодействия.
 import { Link } from 'react-router-dom'
 import type { User } from '../../entities/user/types/user'
 import styles from './SubscriptionsModal.module.css'

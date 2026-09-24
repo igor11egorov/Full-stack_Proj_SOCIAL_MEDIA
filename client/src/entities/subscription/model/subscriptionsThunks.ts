@@ -1,5 +1,6 @@
 // Содержит асинхронные Redux-запросы к API подписок: загрузку сводки и списков,
 // а также подписку и отписку текущего пользователя.
+// Основные части: состояние, редьюсеры и операции с данными сущности.
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import type { User } from '../../user/types/user'

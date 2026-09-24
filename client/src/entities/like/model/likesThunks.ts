@@ -1,5 +1,6 @@
 // Содержит асинхронные Redux-запросы к API лайков публикаций:
 // загрузку списка лайков и переключение отметки «нравится».
+// Основные части: состояние, редьюсеры и операции с данными сущности.
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import type { Like } from '../types/like'

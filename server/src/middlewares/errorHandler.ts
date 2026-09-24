@@ -1,4 +1,5 @@
 // Централизованно преобразует ошибки приложения в HTTP-ответы API.
+// Основные части: обработка запроса до контроллера или единый формат ошибки.
 import type { NextFunction, Request, Response } from 'express'
 import multer from 'multer'
 import { AppError } from '../utils/appError.js'

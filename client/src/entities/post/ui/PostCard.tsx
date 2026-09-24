@@ -1,4 +1,5 @@
 // отвечает за лайк/комментарий прямо в ленте
+// Основные части: состояние, редьюсеры и операции с данными сущности.
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchPostComments } from '../../comment/model/commentsThunks'

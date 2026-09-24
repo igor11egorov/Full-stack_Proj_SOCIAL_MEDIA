@@ -1,4 +1,5 @@
 // Проверяет JWT-токен запроса и добавляет данные авторизованного пользователя в request.
+// Основные части: обработка запроса до контроллера или единый формат ошибки.
 import type { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { User } from '../models/User.js'

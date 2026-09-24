@@ -1,4 +1,5 @@
 // Настраивает Express-приложение: подключает middleware, маршруты и обработчики ошибок.
+// Основные части: экспортируемая логика и зависимости модуля.
 import cors from "cors"
 import type { Request, Response } from "express"
 import express from "express"

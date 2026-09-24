@@ -1,5 +1,6 @@
 // Отображает форму восстановления доступа и отправляет запрос на сброс пароля
 // по введённому email, имени пользователя или номеру телефона.
+// Основные части: данные, локальное состояние и отображение страницы.
 import type { FormEvent } from 'react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'

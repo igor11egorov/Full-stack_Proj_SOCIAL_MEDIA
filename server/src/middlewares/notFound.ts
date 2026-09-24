@@ -1,4 +1,5 @@
 // Возвращает ошибку 404 для API-маршрутов, которые не были найдены.
+// Основные части: обработка запроса до контроллера или единый формат ошибки.
 import type { Request, Response } from 'express'
 
 export const notFound = (req: Request, res: Response): void => {

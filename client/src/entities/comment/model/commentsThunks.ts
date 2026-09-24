@@ -1,5 +1,6 @@
 // Содержит асинхронные Redux-запросы к API комментариев: загрузку, добавление
 // и удаление комментариев к выбранной публикации.
+// Основные части: состояние, редьюсеры и операции с данными сущности.
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import type { Comment } from '../types/comment'

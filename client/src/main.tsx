@@ -1,5 +1,6 @@
 // Создаёт корневое React-приложение и подключает строгий режим, Redux-хранилище
 // и маршрутизатор, доступные всем компонентам приложения.
+// Основные части: экспортируемая логика и зависимости модуля.
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'

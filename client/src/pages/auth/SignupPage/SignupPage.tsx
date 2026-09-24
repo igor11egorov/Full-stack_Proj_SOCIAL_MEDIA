@@ -1,5 +1,6 @@
 // Отображает страницу регистрации и отправляет данные новой учётной записи в Redux,
 // показывая ошибки валидации и состояния запроса пользователю.
+// Основные части: данные, локальное состояние и отображение страницы.
 import type { FormEvent } from 'react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'

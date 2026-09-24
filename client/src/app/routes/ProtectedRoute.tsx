@@ -1,5 +1,6 @@
 // Защищает приватные маршруты: проверяет авторизацию и срок действия токена,
 // перенаправляя неавторизованного пользователя на страницу входа.
+// Основные части: сопоставление URL и HTTP-методов с контроллерами и middleware.
 import { useEffect } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import { logout } from '../../features/auth/model/authSlice'

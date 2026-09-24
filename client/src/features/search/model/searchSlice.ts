@@ -1,5 +1,6 @@
 // Управляет состоянием поиска пользователей в Redux: результатами, статусом запроса
 // и ошибками, а также очищает данные при сбросе поиска.
+// Основные части: логика пользовательского сценария и запросы к API.
 import { createSlice } from '@reduxjs/toolkit'
 import type { User } from '../../../entities/user/types/user'
 import { searchUsers } from './searchThunks'

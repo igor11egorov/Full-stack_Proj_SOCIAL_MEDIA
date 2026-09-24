@@ -1,4 +1,5 @@
 // Обрабатывает HTTP-запросы авторизации: регистрацию, вход и восстановление пароля.
+// Основные части: валидация входных данных, вызовы моделей и формирование HTTP-ответов.
 import type { NextFunction, Request, Response } from 'express'
 import { User } from '../models/User.js'
 import { AppError } from '../utils/appError.js'

@@ -1,5 +1,6 @@
 // Содержит асинхронные Redux-запросы к API публикаций: загрузку лент и отдельного поста,
 // а также создание, обновление и удаление публикаций.
+// Основные части: состояние, редьюсеры и операции с данными сущности.
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import type { Post } from '../types/post'

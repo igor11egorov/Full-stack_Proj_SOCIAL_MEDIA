@@ -1,5 +1,6 @@
 // Управляет состоянием лайков публикаций в Redux: хранит списки, счётчики и статусы
 // загрузки или переключения лайка для каждой публикации.
+// Основные части: состояние, редьюсеры и операции с данными сущности.
 import { createSlice } from '@reduxjs/toolkit'
 import type { Like } from '../types/like'
 import { fetchPostLikes, togglePostLike } from './likesThunks'

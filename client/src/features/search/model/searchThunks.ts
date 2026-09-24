@@ -1,5 +1,6 @@
 // Содержит асинхронный Redux-запрос поиска пользователей по строке запроса
 // и преобразует ошибки API в сообщение для интерфейса.
+// Основные части: логика пользовательского сценария и запросы к API.
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import type { User } from '../../../entities/user/types/user'

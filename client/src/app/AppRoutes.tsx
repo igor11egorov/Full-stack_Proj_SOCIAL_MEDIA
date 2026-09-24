@@ -1,5 +1,6 @@
 // Определяет маршруты приложения, разделяя открытые и защищённые страницы
 // и подключая общий макет для авторизованных пользователей.
+// Основные части: запуск приложения, провайдеры, маршруты и общие настройки.
 import { Route, Routes } from 'react-router-dom'
 import MainLayout from '../widgets/layout/main-layout/MainLayout'
 import GuestRoute from './routes/GuestRoute'

@@ -1,5 +1,6 @@
 // Отображает боковую навигацию приложения, загружает данные профиля и обрабатывает
 // переходы, открытие панелей поиска и уведомлений, а также выход из учётной записи.
+// Основные части: композиция интерфейса, свойства и обработчики взаимодействия.
 import { useEffect } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { logout } from '../../../features/auth/model/authSlice'

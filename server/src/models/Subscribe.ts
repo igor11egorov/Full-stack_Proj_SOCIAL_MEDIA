@@ -1,4 +1,5 @@
 // Описывает Mongoose-модель подписки между двумя пользователями.
+// Основные части: схема данных, ограничения полей и экспорт модели для MongoDB.
 import mongoose, { Document, Model } from 'mongoose'
 
 export interface ISubscribe extends Document {

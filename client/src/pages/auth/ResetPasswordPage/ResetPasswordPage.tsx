@@ -1,5 +1,6 @@
 // Отображает форму установки нового пароля по токену из ссылки,
 // проверяет совпадение паролей и отправляет запрос на их обновление.
+// Основные части: данные, локальное состояние и отображение страницы.
 import type { FormEvent } from 'react'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'

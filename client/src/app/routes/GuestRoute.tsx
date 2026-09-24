@@ -1,5 +1,6 @@
 // Ограничивает гостевые маршруты: перенаправляет авторизованного пользователя на главную
 // и очищает состояние авторизации, если его токен уже истёк.
+// Основные части: сопоставление URL и HTTP-методов с контроллерами и middleware.
 import { useEffect } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import { logout } from '../../features/auth/model/authSlice'

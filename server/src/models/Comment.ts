@@ -1,4 +1,5 @@
 // Описывает Mongoose-модель комментария и правила хранения его данных в MongoDB.
+// Основные части: схема данных, ограничения полей и экспорт модели для MongoDB.
 import mongoose, { Document, Model } from 'mongoose'
 
 export interface IComment extends Document {

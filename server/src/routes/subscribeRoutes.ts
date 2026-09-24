@@ -1,4 +1,5 @@
 // Определяет API-маршруты для подписок и списков пользователей.
+// Основные части: сопоставление URL и HTTP-методов с контроллерами и middleware.
 import { Router } from 'express'
 import {
   getUserFollowers,

@@ -1,4 +1,5 @@
 // Описывает Mongoose-модель лайка публикации и связь с пользователем и постом.
+// Основные части: схема данных, ограничения полей и экспорт модели для MongoDB.
 import mongoose, { Document, Model } from 'mongoose'
 
 export interface ILike extends Document {

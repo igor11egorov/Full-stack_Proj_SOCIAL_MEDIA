@@ -1,4 +1,5 @@
 // Обрабатывает запросы на получение и переключение лайков публикаций.
+// Основные части: валидация входных данных, вызовы моделей и формирование HTTP-ответов.
 import type { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'
 import { Like } from '../models/Like.js'

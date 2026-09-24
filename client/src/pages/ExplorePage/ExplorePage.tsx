@@ -1,5 +1,6 @@
 // Отображает ленту Explore с публикациями, открывает выбранный пост в модальном окне
 // и позволяет подписываться или отписываться от автора открытого поста.
+// Основные части: данные, локальное состояние и отображение страницы.
 import { useEffect, useState } from 'react'
 import PostPreviewModal from '../../widgets/post-preview/PostPreviewModal'
 import Spinner from '../../shared/ui/spinner/Spinner'

@@ -1,4 +1,5 @@
 // Обрабатывает запросы подписки, отписки и получения данных о связях пользователей.
+// Основные части: валидация входных данных, вызовы моделей и формирование HTTP-ответов.
 import type { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'
 import { Notification } from '../models/Notification.js'

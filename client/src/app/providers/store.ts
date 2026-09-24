@@ -1,5 +1,6 @@
 // Настраивает общее Redux-хранилище приложения: объединяет редьюсеры функций
 // и экспортирует типы состояния и dispatch для безопасного использования в компонентах.
+// Основные части: запуск приложения, провайдеры, маршруты и общие настройки.
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from '../../features/auth/model/authSlice'
 import commentsReducer from '../../entities/comment/model/commentsSlice'

@@ -1,5 +1,6 @@
 // Отображает панель поиска пользователей, выполняет запрос с задержкой ввода
 // и показывает найденные профили с возможностью перейти к выбранному пользователю.
+// Основные части: логика пользовательского сценария и запросы к API.
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { clearSearchResults } from '../../model/searchSlice'

@@ -1,4 +1,5 @@
 // Обрабатывает HTTP-запросы для создания, чтения, обновления и удаления публикаций.
+// Основные части: валидация входных данных, вызовы моделей и формирование HTTP-ответов.
 import crypto from 'crypto'
 import type { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'

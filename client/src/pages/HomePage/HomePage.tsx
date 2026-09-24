@@ -1,5 +1,6 @@
 // Отображает главную ленту публикаций: загружает посты, показывает их карточки
 // и открывает выбранную публикацию в модальном окне.
+// Основные части: данные, локальное состояние и отображение страницы.
 import { useEffect, useState } from 'react'
 import PostCard from '../../entities/post/ui/PostCard'
 import PostPreviewModal from '../../widgets/post-preview/PostPreviewModal'

@@ -1,5 +1,6 @@
 // Содержит асинхронные Redux-запросы для авторизации, регистрации
 // и восстановления или сброса пароля через API приложения.
+// Основные части: логика пользовательского сценария и запросы к API.
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { getErrorMessage } from '../../../shared/api/getErrorMessage'

@@ -1,4 +1,5 @@
 // Обрабатывает HTTP-запросы для получения, создания и удаления комментариев к постам.
+// Основные части: валидация входных данных, вызовы моделей и формирование HTTP-ответов.
 import type { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'
 import { Comment } from '../models/Comment.js'

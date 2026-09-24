@@ -1,4 +1,5 @@
 // Запускает HTTP-сервер и подключает настроенное Express-приложение.
+// Основные части: экспортируемая логика и зависимости модуля.
 import http from 'http'
 import app from './app.js'
 import { env } from './config/env.js'

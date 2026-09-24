@@ -1,4 +1,5 @@
 // Описывает Mongoose-модель пользователя, его профиль и данные авторизации.
+// Основные части: схема данных, ограничения полей и экспорт модели для MongoDB.
 import bcrypt from 'bcrypt'
 import mongoose, { Document, Model } from 'mongoose'
 
