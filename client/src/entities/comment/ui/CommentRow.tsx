@@ -13,6 +13,7 @@ const getUserId = (
   user: { _id?: string; id?: string; userId?: string } | null | undefined,
 ) => user?._id || user?.userId || user?.id || ''
 
+// Возвращает вычисленные данные: AgeLabel.
 const getAgeLabel = (createdAt: string) => {
   const diffMinutes = Math.max(
     1,
@@ -40,6 +41,7 @@ type CommentRowProps = {
   onDeleteComment: (commentId: string) => void
 }
 
+// Выполняет логику CommentRow в текущем модуле.
 function CommentRow({
   comment,
   currentUserId,
@@ -67,6 +69,7 @@ function CommentRow({
     dispatch(fetchCommentLikes(comment._id))
   }, [comment._id, dispatch])
 
+  // Обрабатывает действие пользователя: ToggleLike.
   const handleToggleLike = () => {
     setLikedOverride({ commentId: comment._id, value: !isCommentLiked })
     dispatch(toggleCommentLike(comment._id))

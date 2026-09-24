@@ -19,6 +19,7 @@ type LeftSidebarProps = {
   onNotificationsClick: () => void
 }
 
+// Отображает боковую панель навигации и связывает её кнопки с действиями приложения.
 function LeftSidebar({
   isSearchOpen = false,
   isNotificationsOpen = false,
@@ -31,15 +32,18 @@ function LeftSidebar({
   const { myProfile } = useAppSelector((state) => state.profile)
   const profileAvatar = myProfile?.avatar || '/icons/ICH_avatar.png'
 
+  // Загружает данные текущего пользователя, чтобы показать его фотографию в навигации.
   useEffect(() => {
     dispatch(fetchMyProfile())
   }, [dispatch])
 
+  // Завершает сессию пользователя и перенаправляет его на страницу входа.
   const handleLogout = () => {
     dispatch(logout())
     navigate('/login')
   }
 
+  // Переключает маршрут сообщений: открывает его или возвращает на главную при повторном клике.
   const handleMessagesClick = () => {
     navigate(location.pathname === '/messages' ? '/' : '/messages')
   }

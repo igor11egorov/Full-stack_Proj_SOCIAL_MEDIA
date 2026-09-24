@@ -11,6 +11,7 @@ const footerLinks = [
   { label: 'Create', to: '/create' },
 ]
 
+// Выполняет логику Footer в текущем модуле.
 function Footer() {
   return (
     <footer className={styles.footer}>

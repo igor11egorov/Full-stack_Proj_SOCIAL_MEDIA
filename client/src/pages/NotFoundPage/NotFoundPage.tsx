@@ -1,6 +1,7 @@
 // Отображает страницу ошибки 404, когда пользователь переходит по несуществующему маршруту.
 import styles from './NotFoundPage.module.css'
 
+// Выполняет логику NotFoundPage в текущем модуле.
 function NotFoundPage() {
   return (
     <section className={styles.page}>

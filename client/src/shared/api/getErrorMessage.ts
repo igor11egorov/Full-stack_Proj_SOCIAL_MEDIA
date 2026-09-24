@@ -7,6 +7,7 @@ type ApiErrorResponse = {
   error?: string
 }
 
+// Возвращает вычисленные данные: ErrorMessage.
 export const getErrorMessage = (error: unknown, fallback: string) => {
   if (axios.isAxiosError<ApiErrorResponse>(error)) {
     return (

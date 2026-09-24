@@ -61,6 +61,7 @@ type PostPreviewModalProps = {
   onToggleFollowAuthor?: () => void
 }
 
+// Выполняет логику PostPreviewModal в текущем модуле.
 function PostPreviewModal({
   post,
   onClose,
@@ -94,6 +95,7 @@ function PostPreviewModal({
     value: boolean
   } | null>(null)
 
+  // Обрабатывает действие пользователя: AddComment.
   const handleAddComment = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!commentText.trim()) {
@@ -105,6 +107,7 @@ function PostPreviewModal({
     setIsEmojiOpen(false)
   }
 
+  // Обрабатывает действие пользователя: EmojiClick.
   const handleEmojiClick = (emojiData: EmojiClickData) => {
     setCommentText((current) => `${current}${emojiData.emoji}`)
   }
@@ -129,11 +132,13 @@ function PostPreviewModal({
 
   const comments = postComments?.comments ?? []
 
+  // Обрабатывает действие пользователя: ToggleLike.
   const handleToggleLike = () => {
     setLikedOverride({ postId: post._id, value: !isPostLiked })
     dispatch(togglePostLike(post._id))
   }
 
+  // Обрабатывает действие пользователя: DeleteComment.
   const handleDeleteComment = (commentId: string) => {
     dispatch(deletePostComment({ postId: post._id, commentId }))
   }
@@ -144,6 +149,7 @@ function PostPreviewModal({
   }, [dispatch, post._id])
 
   useEffect(() => {
+    // Обрабатывает действие пользователя: KeyDown.
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onClose()
@@ -165,11 +171,13 @@ function PostPreviewModal({
     }
   }, [onClose, onNext, onPrevious])
 
+  // Обрабатывает действие пользователя: TouchStart.
   const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
     touchStartXRef.current = event.touches[0]?.clientX ?? null
     touchStartYRef.current = event.touches[0]?.clientY ?? null
   }
 
+  // Обрабатывает действие пользователя: TouchEnd.
   const handleTouchEnd = (event: TouchEvent<HTMLElement>) => {
     if (touchStartXRef.current === null || touchStartYRef.current === null) {
       return
@@ -207,6 +215,7 @@ function PostPreviewModal({
     onPrevious?.()
   }
 
+  // Отображает нужный элемент: PreviousImage.
   const showPreviousImage = () => {
     setCurrentImageState({
       postId: post._id,
@@ -215,6 +224,7 @@ function PostPreviewModal({
     })
   }
 
+  // Отображает нужный элемент: NextImage.
   const showNextImage = () => {
     setCurrentImageState({
       postId: post._id,

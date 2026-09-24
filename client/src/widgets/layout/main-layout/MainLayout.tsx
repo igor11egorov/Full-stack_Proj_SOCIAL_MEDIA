@@ -9,15 +9,18 @@ import OverlayPanel from '../overlay-panel/OverlayPanel'
 import SearchPanel from '../../../features/search/ui/SearchPanel/SearchPanel'
 import styles from './MainLayout.module.css'
 
+// Выполняет логику MainLayout в текущем модуле.
 function MainLayout() {
   const [activePanel, setActivePanel] = useState<
     'search' | 'notifications' | null
   >(null)
 
+  // Выполняет логику closePanel в текущем модуле.
   const closePanel = () => {
     setActivePanel(null)
   }
 
+  // Переключает состояние: Panel.
   const togglePanel = (panel: 'search' | 'notifications') => {
     setActivePanel((currentPanel) => (currentPanel === panel ? null : panel))
   }

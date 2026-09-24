@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../app/providers/hooks'
 import type { Post } from '../../entities/post/types/post'
 import styles from './HomePage.module.css'
 
+// Выполняет логику HomePage в текущем модуле.
 function HomePage() {
   const dispatch = useAppDispatch()
   const { allPosts, feedStatus, error } = useAppSelector((state) => state.posts)

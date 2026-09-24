@@ -28,6 +28,7 @@ type DeleteCommentPayload = {
   commentId: string
 }
 
+// Возвращает вычисленные данные: AuthHeaders.
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token')
 

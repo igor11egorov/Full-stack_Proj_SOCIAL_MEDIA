@@ -4,6 +4,7 @@ type JwtPayload = {
   exp?: number
 }
 
+// Проверяет условие: TokenExpired.
 export const isTokenExpired = (token: string | null) => {
   if (!token) return true
 

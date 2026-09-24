@@ -18,6 +18,7 @@ type UserPostsResponse = {
   posts: Post[]
 }
 
+// Возвращает вычисленные данные: AuthHeaders.
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token')
 

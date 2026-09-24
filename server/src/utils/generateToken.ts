@@ -2,6 +2,7 @@
 import jwt from 'jsonwebtoken'
 import { env } from '../config/env.js'
 
+// Генерирует значение: Token.
 function generateToken(userId: string): string {
   const token = jwt.sign(
     {

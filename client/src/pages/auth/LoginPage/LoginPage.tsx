@@ -8,6 +8,7 @@ import { loginUser } from '../../../features/auth/model/authThunks'
 import { useAppDispatch, useAppSelector } from '../../../app/providers/hooks'
 import styles from './LoginPage.module.css'
 
+// Выполняет логику LoginPage в текущем модуле.
 function LoginPage() {
   const dispatch = useAppDispatch()
   const { status, error } = useAppSelector((state) => state.auth)
@@ -22,6 +23,7 @@ function LoginPage() {
     dispatch(resetAuthState())
   }, [dispatch])
 
+  // Обрабатывает действие пользователя: Submit.
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 

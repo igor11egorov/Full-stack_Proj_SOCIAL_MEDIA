@@ -18,6 +18,7 @@ const getUserId = (
   user: { _id?: string; id?: string; userId?: string } | null | undefined,
 ) => user?._id || user?.userId || user?.id || ''
 
+// Выполняет логику ExplorePage в текущем модуле.
 function ExplorePage() {
   const dispatch = useAppDispatch()
   const { explorePosts, status, error } = useAppSelector((state) => state.posts)
@@ -65,6 +66,7 @@ function ExplorePage() {
     )
   }, [currentUserId, dispatch, isOwnPost, selectedAuthorId])
 
+  // Обрабатывает действие пользователя: ToggleFollowAuthor.
   const handleToggleFollowAuthor = () => {
     if (!selectedAuthorId || followStatus === 'loading' || isOwnPost) {
       return

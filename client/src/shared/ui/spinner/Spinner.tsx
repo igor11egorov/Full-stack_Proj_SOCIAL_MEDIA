@@ -5,6 +5,7 @@ type SpinnerProps = {
   label?: string
 }
 
+// Выполняет логику Spinner в текущем модуле.
 function Spinner({ label = 'Loading...' }: SpinnerProps) {
   return (
     <div className={styles.wrapper} role="status" aria-live="polite">

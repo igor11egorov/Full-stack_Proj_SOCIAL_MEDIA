@@ -8,6 +8,7 @@ import { forgotPassword } from '../../../features/auth/model/authThunks'
 import { useAppDispatch, useAppSelector } from '../../../app/providers/hooks'
 import styles from './ForgotPasswordPage.module.css'
 
+// Выполняет логику ForgotPasswordPage в текущем модуле.
 function ForgotPasswordPage() {
   const dispatch = useAppDispatch()
   const { status, error, message } = useAppSelector((state) => state.auth)
@@ -19,6 +20,7 @@ function ForgotPasswordPage() {
     dispatch(resetAuthState())
   }, [dispatch])
 
+  // Обрабатывает действие пользователя: Submit.
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     dispatch(forgotPassword({ identifier: identifier.trim() }))

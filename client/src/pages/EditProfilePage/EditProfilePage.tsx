@@ -25,6 +25,7 @@ type EditProfileFormProps = {
   error: string | null
 }
 
+// Выполняет логику EditProfileForm в текущем модуле.
 function EditProfileForm({ myProfile, status, error }: EditProfileFormProps) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -39,6 +40,7 @@ function EditProfileForm({ myProfile, status, error }: EditProfileFormProps) {
 
   const isLoading = status === 'loading'
 
+  // Обрабатывает действие пользователя: PhotoChange.
   const handlePhotoChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
 
@@ -50,6 +52,7 @@ function EditProfileForm({ myProfile, status, error }: EditProfileFormProps) {
     setAvatarPreview(URL.createObjectURL(file))
   }
 
+  // Обрабатывает действие пользователя: Submit.
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -158,6 +161,7 @@ function EditProfileForm({ myProfile, status, error }: EditProfileFormProps) {
   )
 }
 
+// Выполняет логику EditProfilePage в текущем модуле.
 function EditProfilePage() {
   const dispatch = useAppDispatch()
   const { myProfile, status, error } = useAppSelector((state) => state.profile)

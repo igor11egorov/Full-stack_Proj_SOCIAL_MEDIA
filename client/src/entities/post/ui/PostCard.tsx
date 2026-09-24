@@ -25,6 +25,7 @@ const getUserId = (
   user: { _id?: string; id?: string; userId?: string } | null | undefined,
 ) => user?._id || user?.userId || user?.id || ''
 
+// Возвращает вычисленные данные: PostAgeLabel.
 const getPostAgeLabel = (createdAt: string) => {
   const diffMinutes = Math.max(
     1,
@@ -42,6 +43,7 @@ const getPostAgeLabel = (createdAt: string) => {
   return `${Math.floor(diffDays / 7)}w`
 }
 
+// Выполняет логику PostCard в текущем модуле.
 function PostCard({ post, onOpenPost }: PostCardProps) {
   const dispatch = useAppDispatch()
   const { myProfile } = useAppSelector((state) => state.profile)
@@ -86,11 +88,13 @@ function PostCard({ post, onOpenPost }: PostCardProps) {
     }
   }, [authorId, currentUserId, dispatch, isOwnPost])
 
+  // Обрабатывает действие пользователя: ToggleLike.
   const handleToggleLike = () => {
     setLikedOverride({ postId: post._id, value: !isPostLiked })
     dispatch(togglePostLike(post._id))
   }
 
+  // Обрабатывает действие пользователя: ToggleFollow.
   const handleToggleFollow = () => {
     if (!authorId || followStatus === 'loading') {
       return

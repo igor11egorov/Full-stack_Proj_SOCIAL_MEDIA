@@ -33,6 +33,7 @@ const getUserId = (
 ) => user?._id || user?.userId || user?.id || ''
 const collapsedBioLength = 120
 
+// Возвращает вычисленные данные: PostAgeLabel.
 const getPostAgeLabel = (createdAt: string) => {
   const diffMinutes = Math.max(
     1,
@@ -54,6 +55,7 @@ const getPostAgeLabel = (createdAt: string) => {
   return diffDays === 1 ? '1 day' : `${diffDays} days`
 }
 
+// Выполняет логику MyProfilePage в текущем модуле.
 function MyProfilePage() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -135,6 +137,7 @@ function MyProfilePage() {
   }, [dispatch, selectedPost])
 
   useEffect(() => {
+    // Обрабатывает действие пользователя: KeyDown.
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setIsPostMenuOpen(false)
@@ -216,6 +219,7 @@ function MyProfilePage() {
     }
   }
 
+  // Обрабатывает действие пользователя: CopyLink.
   const handleCopyLink = async () => {
     if (!selectedPost) {
       return
@@ -226,6 +230,7 @@ function MyProfilePage() {
     setCopyStatus('copied')
   }
 
+  // Обрабатывает действие пользователя: UnfollowFromList.
   const handleUnfollowFromList = async (userId: string) => {
     if (!myProfileId || followStatus === 'loading') {
       return
@@ -240,6 +245,7 @@ function MyProfilePage() {
     dispatch(fetchUserFollowing(myProfileId))
   }
 
+  // Обрабатывает действие пользователя: DeletePost.
   const handleDeletePost = async () => {
     if (!selectedPost) {
       return
@@ -270,6 +276,7 @@ function MyProfilePage() {
     setSelectedImageIndex(0)
   }
 
+  // Обрабатывает действие пользователя: ToggleSelectedPostLike.
   const handleToggleSelectedPostLike = () => {
     if (!selectedPost) {
       return
@@ -279,12 +286,14 @@ function MyProfilePage() {
     dispatch(togglePostLike(selectedPost._id))
   }
 
+  // Отображает нужный элемент: PreviousSelectedImage.
   const showPreviousSelectedImage = () => {
     setSelectedImageIndex((currentIndex) =>
       currentIndex === 0 ? selectedPostImages.length - 1 : currentIndex - 1,
     )
   }
 
+  // Отображает нужный элемент: NextSelectedImage.
   const showNextSelectedImage = () => {
     setSelectedImageIndex((currentIndex) =>
       currentIndex === selectedPostImages.length - 1 ? 0 : currentIndex + 1,

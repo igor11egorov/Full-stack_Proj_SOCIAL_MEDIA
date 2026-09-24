@@ -50,12 +50,14 @@ type FollowingListResponse = {
   count: number
 }
 
+// Возвращает вычисленные данные: AuthHeaders.
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token')
 
   return token ? { Authorization: `Bearer ${token}` } : undefined
 }
 
+// Возвращает вычисленные данные: UserId.
 const getUserId = (user: SubscriptionUser | string) =>
   typeof user === 'string' ? user : user._id || user.userId || user.id || ''
 

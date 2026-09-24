@@ -15,8 +15,10 @@ type SubscriptionsModalProps = {
   onClose: () => void
 }
 
+// Возвращает вычисленные данные: UserId.
 const getUserId = (user: User) => user._id || user.userId || user.id || ''
 
+// Выполняет логику SubscriptionsModal в текущем модуле.
 function SubscriptionsModal({
   title,
   users,

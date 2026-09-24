@@ -8,6 +8,7 @@ import { registerUser } from '../../../features/auth/model/authThunks'
 import { useAppDispatch, useAppSelector } from '../../../app/providers/hooks'
 import styles from './SignupPage.module.css'
 
+// Выполняет логику SignupPage в текущем модуле.
 function SignupPage() {
   const dispatch = useAppDispatch()
   const { status, error } = useAppSelector((state) => state.auth)
@@ -27,6 +28,7 @@ function SignupPage() {
     dispatch(resetAuthState())
   }, [dispatch])
 
+  // Обрабатывает действие пользователя: Submit.
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 

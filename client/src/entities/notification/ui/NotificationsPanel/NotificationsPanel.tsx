@@ -20,16 +20,19 @@ const getUserId = (
 ) =>
   typeof user === 'string' ? user : user?._id || user?.userId || user?.id || ''
 
+// Возвращает вычисленные данные: SenderUsername.
 const getSenderUsername = (notification: Notification) =>
   typeof notification.sender === 'string'
     ? ''
     : notification.sender.username || ''
 
+// Возвращает вычисленные данные: SenderAvatar.
 const getSenderAvatar = (notification: Notification) =>
   typeof notification.sender === 'string'
     ? '/icons/ICH_avatar.png'
     : notification.sender.avatar || '/icons/ICH_avatar.png'
 
+// Возвращает вычисленные данные: NotificationAgeLabel.
 const getNotificationAgeLabel = (createdAt: string) => {
   const diffMinutes = Math.max(
     1,
@@ -55,6 +58,7 @@ const getNotificationAgeLabel = (createdAt: string) => {
   return `${Math.floor(diffDays / 7)}w`
 }
 
+// Возвращает вычисленные данные: NotificationAction.
 const getNotificationAction = (notification: Notification) => {
   if (notification.type === 'like') {
     return 'liked your photo.'
@@ -67,6 +71,7 @@ const getNotificationAction = (notification: Notification) => {
   return 'started following.'
 }
 
+// Возвращает вычисленные данные: NotificationPostImage.
 const getNotificationPostImage = (notification: Notification) => {
   const post = notification.post
 
@@ -77,6 +82,7 @@ const getNotificationPostImage = (notification: Notification) => {
   return post.images?.[0] || post.image || ''
 }
 
+// Выполняет логику NotificationsPanel в текущем модуле.
 function NotificationsPanel() {
   const dispatch = useAppDispatch()
   const { items, status, error, unreadCount, updateStatus } = useAppSelector(
@@ -87,12 +93,14 @@ function NotificationsPanel() {
     dispatch(fetchNotifications())
   }, [dispatch])
 
+  // Обрабатывает действие пользователя: NotificationClick.
   const handleNotificationClick = (notification: Notification) => {
     if (!notification.isRead) {
       dispatch(markNotificationAsRead(notification._id))
     }
   }
 
+  // Обрабатывает действие пользователя: MarkAllRead.
   const handleMarkAllRead = () => {
     if (unreadCount > 0 && updateStatus !== 'loading') {
       dispatch(markAllNotificationsAsRead())

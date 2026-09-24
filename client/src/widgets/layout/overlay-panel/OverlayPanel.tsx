@@ -9,8 +9,10 @@ type OverlayPanelProps = {
   onClose: () => void
 }
 
+// Выполняет логику OverlayPanel в текущем модуле.
 function OverlayPanel({ children, onClose }: OverlayPanelProps) {
   useEffect(() => {
+    // Обрабатывает действие пользователя: KeyDown.
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onClose()

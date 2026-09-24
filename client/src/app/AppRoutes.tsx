@@ -17,6 +17,7 @@ import MyProfilePage from '../pages/MyProfilePage/MyProfilePage'
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
 import UserProfilePage from '../pages/UserProfilePage/UserProfilePage'
 
+// Выполняет логику AppRoutes в текущем модуле.
 function AppRoutes() {
   return (
     <Routes>

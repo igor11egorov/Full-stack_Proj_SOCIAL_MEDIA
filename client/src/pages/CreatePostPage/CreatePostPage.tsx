@@ -26,6 +26,7 @@ type SelectedImage = {
   preview: string
 }
 
+// Выполняет логику CreatePostPage в текущем модуле.
 function CreatePostPage() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -45,6 +46,7 @@ function CreatePostPage() {
   const canSubmit = selectedImages.length > 0 && !isLoading
   const canAddMoreImages = selectedImages.length < maxImagesCount
   const activeImage = selectedImages[activeImageIndex] ?? selectedImages[0]
+  // Обрабатывает действие пользователя: EmojiClick.
   const handleEmojiClick = (emojiData: EmojiClickData) => {
     setDescription((current) =>
       `${current}${emojiData.emoji}`.slice(0, maxDescriptionLength),
@@ -75,6 +77,7 @@ function CreatePostPage() {
     [description.length],
   )
 
+  // Обрабатывает действие пользователя: ImageChange.
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files ?? [])
 
@@ -117,6 +120,7 @@ function CreatePostPage() {
     event.target.value = ''
   }
 
+  // Обрабатывает действие пользователя: RemoveImage.
   const handleRemoveImage = (imageId: string) => {
     setSelectedImages((currentImages) => {
       const imageToRemove = currentImages.find((image) => image.id === imageId)
@@ -134,18 +138,21 @@ function CreatePostPage() {
     })
   }
 
+  // Отображает нужный элемент: PreviousImage.
   const showPreviousImage = () => {
     setActiveImageIndex((currentIndex) =>
       currentIndex === 0 ? selectedImages.length - 1 : currentIndex - 1,
     )
   }
 
+  // Отображает нужный элемент: NextImage.
   const showNextImage = () => {
     setActiveImageIndex((currentIndex) =>
       currentIndex === selectedImages.length - 1 ? 0 : currentIndex + 1,
     )
   }
 
+  // Обрабатывает действие пользователя: Submit.
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 

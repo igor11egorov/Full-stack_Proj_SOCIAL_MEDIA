@@ -8,6 +8,7 @@ import { resetPassword } from '../../../features/auth/model/authThunks'
 import { useAppDispatch, useAppSelector } from '../../../app/providers/hooks'
 import styles from './ResetPasswordPage.module.css'
 
+// Выполняет логику ResetPasswordPage в текущем модуле.
 function ResetPasswordPage() {
   const dispatch = useAppDispatch()
   const { token } = useParams<{ token: string }>()
@@ -23,6 +24,7 @@ function ResetPasswordPage() {
     dispatch(resetAuthState())
   }, [dispatch])
 
+  // Обрабатывает действие пользователя: Submit.
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 

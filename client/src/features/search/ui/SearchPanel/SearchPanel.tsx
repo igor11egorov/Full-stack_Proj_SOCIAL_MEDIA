@@ -15,6 +15,7 @@ type SearchPanelProps = {
   onClose?: () => void
 }
 
+// Выполняет логику SearchPanel в текущем модуле.
 function SearchPanel({ onClose }: SearchPanelProps) {
   const dispatch = useAppDispatch()
   const { users, status, error } = useAppSelector((state) => state.search)
@@ -38,11 +39,13 @@ function SearchPanel({ onClose }: SearchPanelProps) {
     }
   }, [dispatch, searchValue])
 
+  // Обрабатывает действие пользователя: Clear.
   const handleClear = () => {
     setSearchValue('')
     dispatch(clearSearchResults())
   }
 
+  // Обрабатывает действие пользователя: UserClick.
   const handleUserClick = () => {
     handleClear()
     onClose?.()

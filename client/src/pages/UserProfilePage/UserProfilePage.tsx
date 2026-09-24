@@ -41,6 +41,7 @@ const getUserId = (
   user: { _id?: string; id?: string; userId?: string } | null | undefined,
 ) => user?._id || user?.userId || user?.id || ''
 
+// Выполняет логику UserProfilePage в текущем модуле.
 function UserProfilePage() {
   const { userId } = useParams<{ userId: string }>()
   const navigate = useNavigate()
@@ -92,6 +93,7 @@ function UserProfilePage() {
       return
     }
 
+    // Выполняет логику loadProfile в текущем модуле.
     const loadProfile = async () => {
       try {
         setProfileStatus('loading')
@@ -135,6 +137,7 @@ function UserProfilePage() {
     dispatch(fetchUserFollowing(userId))
   }, [dispatch, subscriptionsModal, userId])
 
+  // Обрабатывает действие пользователя: ToggleFollow.
   const handleToggleFollow = async () => {
     if (!userId || followStatus === 'loading') {
       return
@@ -148,6 +151,7 @@ function UserProfilePage() {
     dispatch(followUser(userId))
   }
 
+  // Обрабатывает действие пользователя: OpenMessages.
   const handleOpenMessages = () => {
     if (!userId || !user) {
       return

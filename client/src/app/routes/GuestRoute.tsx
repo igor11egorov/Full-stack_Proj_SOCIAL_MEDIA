@@ -6,6 +6,7 @@ import { logout } from '../../features/auth/model/authSlice'
 import { isTokenExpired } from '../../features/auth/model/tokenUtils'
 import { useAppDispatch, useAppSelector } from '../providers/hooks'
 
+// Выполняет логику GuestRoute в текущем модуле.
 function GuestRoute() {
   const dispatch = useAppDispatch()
   const { isAuthenticated, token } = useAppSelector((state) => state.auth)
